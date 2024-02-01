@@ -1,0 +1,14 @@
+{
+	"name": "blockydoku",
+	"private": true,
+	"version": "0.0.0",
+	"type": "module",
+	"scripts": {
+		"build:sass": "sass src:dist",
+		"build:ts": "tsc --outDir dist"
+	},
+	"devDependencies": {
+		"sass": "1.70.0",
+		"typescript": "5.3.3"
+	}
+}

@@ -1,0 +1,171 @@
+* {
+	box-sizing: border-box;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+
+div.app {
+	justify-content: space-around;
+	background: var(--color);
+	align-items: center;
+	display: flex;
+
+	@media (orientation: landscape) {
+		flex-direction: row;
+	}
+
+	@media (orientation: portrait) {
+		flex-direction: column;
+	}
+
+	&::after {
+		content: "Score: " counter(score);
+		position: absolute;
+		top: 0;
+		right: 0;
+		padding: 1vmin;
+		font-size: 20px;
+		color: #FFF;
+		font-family: Arial, Helvetica, sans-serif;
+	}
+
+	counter-reset: score var(--score, 0);
+}
+
+aside {
+	display: grid;
+	background: #FFF;
+	justify-content: space-evenly;
+	border: 1px solid black;
+	align-items: center;
+	padding: 10vmin;
+
+	> div {
+		display: flex;
+		gap: 10vmin;
+		grid-area: 1 / 1;
+		justify-content: center;
+		align-items: center;
+
+		@media (orientation: landscape) {
+			flex-direction: column;
+		}
+
+		@media (orientation: portrait) {
+			flex-direction: row;
+		}
+	}
+}
+
+table {
+	border-collapse: collapse;
+	background: #fff;
+	table-layout: fixed;
+}
+
+td {
+	border: 1px solid black;
+	background: var(--color);
+	width: 6vmin;
+	height: 6vmin;
+
+	&.dark:not(.filled) {
+		opacity: 0.25;
+	}
+
+	&.light:not(.filled) {
+		opacity: 0;
+	}
+
+	&.highlight {
+		position: relative;
+
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgba(151, 151, 151, 0.9);
+		}
+	}
+
+	&.empty {
+		background: transparent;
+		pointer-events: none;
+		border: 0;
+	}
+}
+
+table.block {
+	transform: translate(calc(var(--dx, 0) * 1px),
+			calc(var(--dy, 0) * 1px));
+	background: transparent;
+
+	&.used {
+		visibility: hidden;
+		pointer-events: none;
+	}
+
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+}
+
+form.score::before {
+	content: "You have scored " counter(score) " points";
+	display: block;
+}
+
+dialog {
+	border-radius: 10px;
+	width: 500px;
+	border: 0;
+
+	font-family: Arial, Helvetica, sans-serif;
+
+	h1 {
+		text-align: center;
+		font-size: 1.5em;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: 1.25em;
+	}
+
+	input[type="color"] {
+		visibility: hidden;
+		width: 0;
+		position: absolute;
+	}
+
+	label.color {
+		display: block;
+		height: 32px;
+		margin: 18px 0;
+		border-radius: 8px;
+		outline: 2px solid black;
+		background-color: var(--color);
+	}
+
+	button {
+		margin: auto;
+		display: block;
+		background-color: transparent;
+		border: 1px solid black;
+		border-radius: 2px;
+		outline: none !important;
+		font-size: 1em;
+	}
+
+	&::backdrop {
+		background: rgba(0, 0, 0, 0.5);
+	}
+}
