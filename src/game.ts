@@ -43,6 +43,7 @@ class Game {
         this.app.classList.add("app");
         this.app.style.setProperty("position", "absolute");
 
+        this.panel.addEventListener("touchstart", Game.blockTouch);
         this.panel.addEventListener("mousedown", this);
         this.app.style.setProperty("--color", "#3030FF");
         this.app.append(this.board.table, aside);
@@ -162,6 +163,9 @@ class Game {
             document.removeEventListener("mousemove", mouseMove);
             document.removeEventListener("mouseup", mouseUp);
 
+            document.removeEventListener("touchmove", Game.blockTouch);
+            document.removeEventListener("touchend", Game.blockTouch);
+
             const field = this.getFieldFor(table);
 
             table.style.removeProperty("--dx");
@@ -191,6 +195,9 @@ class Game {
 
         document.addEventListener("mousemove", mouseMove);
         document.addEventListener("mouseup", mouseUp);
+
+        document.addEventListener("touchmove", Game.blockTouch);
+        document.addEventListener("touchend", Game.blockTouch);
     }
 
     check() {
@@ -214,5 +221,8 @@ class Game {
         this.panel.innerHTML = "";
         this.fill();
     }
-}
 
+    private static blockTouch(event: TouchEvent) {
+        event.preventDefault();
+    }
+}
