@@ -61,6 +61,17 @@ class Board {
     pop(previous: number, group: HTMLTableCellElement[]) {
         if (group.every(td => td.classList.contains("filled"))) {
             for (const td of group) {
+                td.style.setProperty("transition-delay", `${previous / 20}s`);
+                td.style.setProperty("transition-duration", `${group.length / 20}s`);
+                td.style.setProperty("transition-property", "opacity");
+                window.setTimeout(
+                    function () {
+                        td.style.removeProperty("transition-delay");
+                        td.style.removeProperty("transition-duration");
+                        td.style.removeProperty("transition-property");
+                    },
+                    (previous + group.length) * 50
+                );
                 td.classList.remove("filled");
             }
 
