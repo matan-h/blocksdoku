@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "./",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "src",
+      "LICENSE",
+      "README.md",
+      "tsconfig.json",
+      "package-lock.json",
+      "package.json"
+    ]
+  }
+}
