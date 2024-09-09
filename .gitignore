@@ -2,4 +2,4 @@ dist
 node_modules
 .firebaserc
 firebase.json
-.gitgnore
+.firebase
