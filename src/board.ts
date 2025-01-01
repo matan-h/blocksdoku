@@ -6,6 +6,7 @@ export default class Board {
     rows: HTMLTableCellElement[][] = [[], [], [], [], [], [], [], [], []];
 
     constructor() {
+        this.table.className = "main";
         for (let i = 0; i < 9; i++) {
             const tr = document.createElement("tr");
 
