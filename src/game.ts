@@ -87,13 +87,15 @@ export default class Game {
             const settings = JSON.parse(saved);
             theme.value = settings.theme;
             animation.value = settings.animation;
+            this.updateTheme(theme.value);
+            this.settings.querySelector<HTMLLabelElement>('label.color')!.style.backgroundColor = theme.value;
         }
 
-        this.app.style.setProperty("--color", theme.value);
         this.app.style.setProperty("--animation", animation.value);
 
         theme.oninput = () => {
-            this.app.style.setProperty("--color", theme.value);
+            this.updateTheme(theme.value);
+            this.settings.querySelector<HTMLLabelElement>('label.color')!.style.backgroundColor = theme.value;
             this.saveSettings();
         };
         animation.oninput = () => {
@@ -120,6 +122,10 @@ export default class Game {
                 animation: animation.value,
             })
         );
+    }
+
+    updateTheme(color: string) {
+        this.app.style.setProperty("--color", color);
     }
 
     set score(value: number) {
