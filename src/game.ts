@@ -190,12 +190,9 @@ class Game {
 
         document.addEventListener("mousemove", mouseMove);
         document.addEventListener("mouseup", mouseUp);
-
-        document.addEventListener("touchmove", mouseMove);
-        document.addEventListener("touchend", mouseUp);
     }
 
-    handleEvent(event: TouchEvent) {
+    handleEvent(event: MouseEvent | TouchEvent) {
         event.preventDefault();
 
         const target = event.target as HTMLElement;
@@ -205,63 +202,127 @@ class Game {
             return;
         }
 
-        const touch = event.changedTouches[0];
+        let mouseMove: (event: MouseEvent | TouchEvent) => void;
+        let mouseUp: (event: MouseEvent | TouchEvent) => void;
 
-        const mouseMove = (event: TouchEvent) => {
-            event.preventDefault();
+        if (event instanceof MouseEvent) {
+            if (event.button !== 0) {
+                return;
+            }
 
-            const x = +table.style.getPropertyValue("--dx");
-            const y = +table.style.getPropertyValue("--dy");
+            mouseMove = (event: MouseEvent) => {
+                event.preventDefault();
 
+                const x = +table.style.getPropertyValue("--dx");
+                const y = +table.style.getPropertyValue("--dy");
+
+                const field = this.getFieldFor(table);
+
+                table.style.setProperty("--dx", `${x + event.movementX}`);
+                table.style.setProperty("--dy", `${y + event.movementY}`);
+
+                this.board.clearHighlight();
+
+                if (field && this.board.canPlace(...field, table)) {
+                    this.board.mark(...field, table, "highlight");
+                }
+            };
+
+            mouseUp = (event: MouseEvent) => {
+                event.preventDefault();
+
+                document.removeEventListener("mousemove", mouseMove);
+                document.removeEventListener("mouseup", mouseUp);
+
+                const field = this.getFieldFor(table);
+
+                table.style.removeProperty("--dx");
+                table.style.removeProperty("--dy");
+
+                if (field && this.board.canPlace(...field, table)) {
+                    this.score += table.querySelectorAll("td:not(.empty)").length;
+                    this.board.mark(...field, table, "filled");
+
+                    this.check();
+                    table.classList.add("used");
+
+                    this.score += this.board.clearFilled();
+                }
+
+                this.board.clearHighlight();
+
+                for (const child of this.panel.children) {
+                    if (!child.classList.contains("used")) {
+                        return;
+                    }
+                }
+
+                this.panel.innerHTML = "";
+                this.fill();
+            };
+
+            document.addEventListener("mousemove", mouseMove);
+            document.addEventListener("mouseup", mouseUp);
+        } else if (event instanceof TouchEvent) {
             const touch = event.changedTouches[0];
 
-            const field = this.getFieldFor(table);
+            mouseMove = (event: TouchEvent) => {
+                event.preventDefault();
 
-            table.style.setProperty("--dx", `${x + touch.clientX - touch.target.getBoundingClientRect().left - (table.offsetWidth / 2)}`);
-            table.style.setProperty("--dy", `${y + touch.clientY - touch.target.getBoundingClientRect().top - (table.offsetHeight / 2)}`);
+                const x = +table.style.getPropertyValue("--dx");
+                const y = +table.style.getPropertyValue("--dy");
 
-            this.board.clearHighlight();
+                const touch = event.changedTouches[0];
+                const target = touch.target as HTMLElement;
 
-            if (field && this.board.canPlace(...field, table)) {
-                this.board.mark(...field, table, "highlight");
-            }
-        };
+                const field = this.getFieldFor(table);
 
-        const mouseUp = (event: TouchEvent) => {
-            event.preventDefault();
+                table.style.setProperty("--dx", `${x + touch.clientX - target.getBoundingClientRect().left - (table.offsetWidth / 2)}`);
+                table.style.setProperty("--dy", `${y + touch.clientY - target.getBoundingClientRect().top - (table.offsetHeight / 2)}`);
 
-            document.removeEventListener("touchmove", mouseMove);
-            document.removeEventListener("touchend", mouseUp);
+                this.board.clearHighlight();
 
-            const field = this.getFieldFor(table);
-
-            table.style.removeProperty("--dx");
-            table.style.removeProperty("--dy");
-
-            if (field && this.board.canPlace(...field, table)) {
-                this.score += table.querySelectorAll("td:not(.empty)").length;
-                this.board.mark(...field, table, "filled");
-                
-                this.check();
-                table.classList.add("used");
-                
-                this.score += this.board.clearFilled();
-            }
-
-            this.board.clearHighlight();
-
-            for (const child of this.panel.children) {
-                if (!child.classList.contains("used")) {
-                    return;
+                if (field && this.board.canPlace(...field, table)) {
+                    this.board.mark(...field, table, "highlight");
                 }
-            }
+            };
 
-            this.panel.innerHTML = "";
-            this.fill();
-        };
+            mouseUp = (event: TouchEvent) => {
+                event.preventDefault();
 
-        document.addEventListener("touchmove", mouseMove);
-        document.addEventListener("touchend", mouseUp);
+                document.removeEventListener("touchmove", mouseMove);
+                document.removeEventListener("touchend", mouseUp);
+
+                const field = this.getFieldFor(table);
+
+                table.style.removeProperty("--dx");
+                table.style.removeProperty("--dy");
+
+                if (field && this.board.canPlace(...field, table)) {
+                    this.score += table.querySelectorAll("td:not(.empty)").length;
+                    this.board.mark(...field, table, "filled");
+
+                    this.check();
+                    table.classList.add("used");
+
+                    this.score += this.board.clearFilled();
+                }
+
+                this.board.clearHighlight();
+
+                for (const child of this.panel.children) {
+                    if (!child.classList.contains("used")) {
+                        return;
+                    }
+                }
+
+                this.panel.innerHTML = "";
+                this.fill();
+            };
+
+            document.addEventListener("touchmove", mouseMove);
+            document.addEventListener("touchend", mouseUp);
+        }
     }
 
     check() {
