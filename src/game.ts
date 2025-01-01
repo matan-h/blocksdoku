@@ -72,6 +72,7 @@ export default class Game {
                         <option value="ripple">Ripple</option>
                         <option value="spin" selected>Spin</option>
                         <option value="swirl">Swirl</option>
+                        <option value="colorspin">Color Spin</option>
                     </select>
                 </div>
                  <div class="setting">
