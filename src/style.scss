@@ -228,8 +228,8 @@ dialog {
 }
 
 // effects (GPT-written)
-.explode{ animation: explode 0.5s forwards}
-.fade-out{ animation: fade-out 1s forwards;}
+.explode{ animation: explode 1s forwards}
+.fade-out{ animation: fade-out 1s ease-out forwards;}
 .ripple{ animation: ripple 1s ease-out forwards;}
 .spin{ animation: spin 1s forwards;}
 

@@ -203,10 +203,10 @@ export default class Game {
                     this.score += table.querySelectorAll("td:not(.empty)").length;
                     this.board.mark(...field, table, "filled");
 
-                    this.check();
                     table.classList.add("used");
-
                     this.score += this.board.clearFilled();
+                    this.check();
+
                 }
 
                 this.board.clearHighlights();
@@ -282,6 +282,7 @@ export default class Game {
 
     check() {
         const tables = this.panel.querySelectorAll<HTMLTableElement>("table:not(.used)");
+        if (!tables.length) return false;
         let over = true;
 
         for (const table of tables) {

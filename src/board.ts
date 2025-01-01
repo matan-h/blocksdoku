@@ -111,14 +111,12 @@ export default class Board {
         const completing = this.getCompleting();
         for (const group of completing) {
             for (const td of group) {
+                td.classList.remove("filled");
                 if(animation !== "none"){
                     td.classList.add(animation);
                     window.setTimeout(() => {
                         td.classList.remove(animation);
-                        td.classList.remove("filled");
                     }, 1000);
-                }else{
-                    td.classList.remove("filled");
                 }
             }
             previous += group.length;
