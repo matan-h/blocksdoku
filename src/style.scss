@@ -109,7 +109,6 @@ td {
 	background-color: var(--color-primary);
 	width: 8vmin;
 	height: 8vmin;
-	transition: background-color 0.3s ease;
 
 	&.dark:not(.filled) {
 		opacity: 0.1;
@@ -124,8 +123,12 @@ td {
 		background: var(--color-highlight);
 		opacity: 1 !important;
 	}
+	&.match{
+		filter: brightness(1.25);
+	}
 
 	&.empty {
+		transition: background-color 0.3s ease;
 		background: transparent;
 		pointer-events: none;
 		border: 0;

@@ -69,14 +69,17 @@ export default class Board {
         return true;
     }
 
-    mark(x: number, y: number, block: HTMLTableElement, type: "highlight" | "filled") {
+    mark(x: number, y: number, block: HTMLTableElement, type: "highlight" | "filled") : HTMLTableCellElement[]{
+        const ret = [];
         for (let i = 0; i < block.rows.length; i++) {
             for (let j = 0; j < block.rows[i].cells.length; j++) {
                 if (!block.rows[i].cells[j].classList.contains("empty")) {
                     this.table.rows[y + i].cells[x + j].classList.add(type);
+                    ret.push(this.table.rows[y + i].cells[x + j])
                 }
             }
         }
+        return ret
     }
 
     pop(previous: number, group: HTMLTableCellElement[]) {
@@ -114,14 +117,24 @@ export default class Board {
         return true;
     }
 
-    clearHighlight() {
-        for (const cell of this.table.querySelectorAll("td.highlight")) {
+    clearHighlights() {
+        for (const cell of this.table.querySelectorAll("td.highlight,td.match")) {
             cell.classList.remove("highlight");
+            cell.classList.remove("match");
         }
+        
+
     }
+    
 
     clearFilled() {
         return this.columns.reduce(this.pop, this.rows.reduce(this.pop, this.squares.reduce(this.pop, 0)));
+    }
+
+    getCompleting(block:HTMLTableCellElement[]) : HTMLTableCellElement[][]{
+        const findCompletions =  group=>group.every(td => td.classList.contains("filled")||block.includes(td));
+
+        return [...this.columns.filter(findCompletions),... this.rows.filter(findCompletions),...this.squares.filter(findCompletions, 0)];
     }
 
     positionFor(dom: HTMLElement) {

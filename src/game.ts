@@ -55,26 +55,6 @@ export default class Game {
         this.app.append(this.gameOver);
     }
 
-    getFieldFor(block: HTMLTableElement) {
-        const blockBBOX = block.getBoundingClientRect();
-
-        for (let i = 0; i < this.board.table.rows.length; i++) {
-            for (let j = 0; j < this.board.table.rows[i].cells.length; j++) {
-                const tdBBOX = this.board.table.rows[i].cells[j].getBoundingClientRect();
-                const threshold = 10;
-
-                if (
-                    Math.abs(tdBBOX.left - blockBBOX.left) < threshold &&
-                    Math.abs(tdBBOX.top - blockBBOX.top) < threshold
-                ) {
-                    return [j, i] as [number, number];
-                }
-            }
-        }
-
-        return null;
-    }
-
     createSettingsDialog() {
         this.settings.innerHTML = '<h1>Settings</h1><h2>Theme</h2>';
         const input = document.createElement("input");
@@ -151,7 +131,7 @@ export default class Game {
                 table.style.setProperty("--dx", `${x + event.movementX}`);
                 table.style.setProperty("--dy", `${y + event.movementY}`);
 
-                this.board.clearHighlight();
+                this.board.clearHighlights();
 
                 if (field && this.board.canPlace(...field, table)) {
                     this.board.mark(...field, table, "highlight");
@@ -164,7 +144,7 @@ export default class Game {
                 document.removeEventListener("mousemove", mouseMove);
                 document.removeEventListener("mouseup", mouseUp);
 
-                const field = this.getFieldFor(table);
+                const field = this.board.getFieldFor(table);
 
                 table.style.removeProperty("--dx");
                 table.style.removeProperty("--dy");
@@ -179,7 +159,7 @@ export default class Game {
                     this.score += this.board.clearFilled();
                 }
 
-                this.board.clearHighlight();
+                this.board.clearHighlights();
 
                 for (const child of this.panel.children) {
                     if (!child.classList.contains("used")) {
@@ -209,10 +189,11 @@ export default class Game {
                 table.style.setProperty("--dx", `${x + touch.clientX - (target.getBoundingClientRect().left + (table.offsetWidth / 2))}`);
                 table.style.setProperty("--dy", `${y + touch.clientY - (target.getBoundingClientRect().top + (table.offsetHeight / 2))}`);
 
-                this.board.clearHighlight();
+                this.board.clearHighlights();
 
                 if (field && this.board.canPlace(...field, table)) {
-                    this.board.mark(...field, table, "highlight");
+                    let mark = this.board.mark(...field, table, "highlight");
+                    this.board.getCompleting(mark).forEach(e=>e.forEach(el=>el.classList.add("match")))
                 }
             };
 
@@ -220,7 +201,7 @@ export default class Game {
                 document.removeEventListener("touchmove", mouseMove);
                 document.removeEventListener("touchend", mouseUp);
 
-                const field = this.getFieldFor(table);
+                const field = this.board.getFieldFor(table);
 
                 table.style.removeProperty("--dx");
                 table.style.removeProperty("--dy");
@@ -235,7 +216,7 @@ export default class Game {
                     this.score += this.board.clearFilled();
                 }
 
-                this.board.clearHighlight();
+                this.board.clearHighlights();
 
                 for (const child of this.panel.children) {
                     if (!child.classList.contains("used")) {
