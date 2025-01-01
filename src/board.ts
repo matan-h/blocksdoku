@@ -82,28 +82,6 @@ export default class Board {
         return ret
     }
 
-    pop(previous: number, group: HTMLTableCellElement[]) {
-        if (group.every(td => td.classList.contains("filled"))) {
-            for (const td of group) {
-                td.style.setProperty("transition-delay", `${previous / 20}s`);
-                td.style.setProperty("transition-duration", `${group.length / 20}s`);
-                td.style.setProperty("transition-property", "opacity");
-                window.setTimeout(
-                    function () {
-                        td.style.removeProperty("transition-delay");
-                        td.style.removeProperty("transition-duration");
-                        td.style.removeProperty("transition-property");
-                    },
-                    (previous + group.length) * 50
-                );
-                td.classList.remove("filled");
-            }
-
-            return previous + group.length;
-        }
-
-        return previous;
-    }
 
     isDisabled(block: HTMLTableElement) {
         for (let i = 0; i < 9; i++) {
@@ -128,10 +106,29 @@ export default class Board {
     
 
     clearFilled() {
-        return this.columns.reduce(this.pop, this.rows.reduce(this.pop, this.squares.reduce(this.pop, 0)));
+        let previous = 0;
+        const completing = this.getCompleting();
+        for (const group of completing) {
+            for (const td of group) {
+                td.style.setProperty("transition-delay", `${previous / 20}s`);
+                td.style.setProperty("transition-duration", `${group.length / 20}s`);
+                td.style.setProperty("transition-property", "opacity");
+                window.setTimeout(
+                    function () {
+                        td.style.removeProperty("transition-delay");
+                        td.style.removeProperty("transition-duration");
+                        td.style.removeProperty("transition-property");
+                    },
+                    (previous + group.length) * 50
+                );
+                td.classList.remove("filled");
+            }
+            previous += group.length;
+        }
+        return previous;
     }
 
-    getCompleting(block:HTMLTableCellElement[]) : HTMLTableCellElement[][]{
+    getCompleting(block:HTMLTableCellElement[]=[]) : HTMLTableCellElement[][]{
         const findCompletions =  group=>group.every(td => td.classList.contains("filled")||block.includes(td));
 
         return [...this.columns.filter(findCompletions),... this.rows.filter(findCompletions),...this.squares.filter(findCompletions, 0)];
