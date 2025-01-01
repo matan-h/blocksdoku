@@ -73,6 +73,17 @@ body {
 		border-radius: 5px;
 		cursor: pointer;
 	}
+    >.high-score {
+        position: fixed;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px;
+        font-size: 1.2em;
+        color: var(--color-light);
+        background-color: var(--color-dark);
+        border-radius: 5px;
+    }
 }
 
 @keyframes swirl {
