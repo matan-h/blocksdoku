@@ -29,22 +29,22 @@ body {
 	min-height: 100vh;
 	padding: 20px;
 	gap: 20px;
-    flex-wrap: wrap;
+	flex-wrap: wrap;
 	counter-reset: score var(--score, 0);
-    width: 100%;
+	width: 100%;
 
-    > * {
-        max-width: 100%;
-    }
+	>* {
+		max-width: 100%;
+	}
 
-    > table {
-        max-width: 90vmin;
-        max-height: 90vmin;
-    }
+	>table {
+		max-width: 90vmin;
+		max-height: 90vmin;
+	}
 
 	@media (min-width: 768px) {
 		flex-direction: column;
-        flex-wrap: nowrap;
+		flex-wrap: nowrap;
 	}
 
 
@@ -60,7 +60,7 @@ body {
 		border-radius: 5px;
 	}
 
-	> button {
+	>button {
 		position: fixed;
 		top: 10px;
 		left: 10px;
@@ -74,24 +74,24 @@ body {
 	}
 }
 
-.app > div {
-    display: flex;
-    flex-direction: column;
-    background-color: var(--color-light);
-    border: 1px solid var(--color-dark);
-    padding: 20px;
-    border-radius: 8px;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-    
-    > div {
-        display: flex;
-        gap: 15px;
-        justify-content: center;
-        align-items: center;
-        flex-wrap: wrap;
-    }
+.app>div {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-light);
+	border: 1px solid var(--color-dark);
+	padding: 20px;
+	border-radius: 8px;
+	align-items: center;
+	gap: 10px;
+	margin-top: 20px;
+
+	>div {
+		display: flex;
+		gap: 15px;
+		justify-content: center;
+		align-items: center;
+		flex-wrap: wrap;
+	}
 }
 
 table {
@@ -100,7 +100,8 @@ table {
 	table-layout: fixed;
 	border-radius: 8px;
 }
-.main table{
+
+.main table {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -123,7 +124,8 @@ td {
 		background: var(--color-highlight);
 		opacity: 1 !important;
 	}
-	&.match{
+
+	&.match {
 		filter: brightness(1.25);
 	}
 
@@ -217,5 +219,70 @@ dialog {
 
 	&::backdrop {
 		background: rgba(0, 0, 0, 0.5);
+	}
+}
+
+// effects (GPT-written)
+.explode{ animation: explode 0.5s forwards}
+.shatter{ animation: shatter 1s forwards;}
+.ripple{ animation: ripple 1s ease-out forwards;}
+.spin{ animation: spin 1s forwards;}
+
+@keyframes shatter {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		transform: translate(calc(50px * (Math.random() - 0.5)), calc(50px * (Math.random() - 0.5))) scale(0);
+		opacity: 0;
+	}
+}
+
+@keyframes ripple {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	50% {
+		transform: scale(1.2);
+		opacity: 0.5;
+	}
+
+	100% {
+		transform: scale(0);
+		opacity: 0;
+	}
+}
+
+@keyframes explode {
+	0% {
+		transform: scale(1);
+		opacity: 1;
+	}
+
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
+}
+
+/* Spin and Vanish 1s forwards*/
+@keyframes spin {
+	0% {
+		transform: rotateY(0deg) scale(1);
+		opacity: 1;
+	}
+
+	50% {
+		transform: rotateY(180deg) scale(0.7);
+		opacity: 0.5;
+	}
+
+	100% {
+		transform: rotateY(360deg) scale(0);
+		opacity: 0;
 	}
 }
