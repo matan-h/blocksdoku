@@ -120,78 +120,6 @@ class Game {
         this.check();
     }
 
-    handleEvent(event: MouseEvent) {
-        event.preventDefault();
-
-        const target = event.target as HTMLElement;
-        const table = target.closest("table")!;
-
-        if (event.button !== 0) {
-            return;
-        }
-
-        if (target.tagName !== "TD") {
-            return;
-        }
-
-        const mouseMove = (event: MouseEvent) => {
-            event.preventDefault();
-
-            const x = +table.style.getPropertyValue("--dx");
-            const y = +table.style.getPropertyValue("--dy");
-
-            const field = this.getFieldFor(table);
-
-            table.style.setProperty("--dx", `${x + event.movementX}`);
-            table.style.setProperty("--dy", `${y + event.movementY}`);
-
-            this.board.clearHighlight();
-
-            if (field && this.board.canPlace(...field, table)) {
-                this.board.mark(...field, table, "highlight");
-            }
-        };
-
-        const mouseUp = (event: MouseEvent) => {
-            event.preventDefault();
-
-            document.removeEventListener("mousemove", mouseMove);
-            document.removeEventListener("mouseup", mouseUp);
-
-            document.removeEventListener("touchmove", Game.blockTouch);
-            document.removeEventListener("touchend", Game.blockTouch);
-
-            const field = this.getFieldFor(table);
-
-            table.style.removeProperty("--dx");
-            table.style.removeProperty("--dy");
-
-            if (field && this.board.canPlace(...field, table)) {
-                this.score += table.querySelectorAll("td:not(.empty)").length;
-                this.board.mark(...field, table, "filled");
-                
-                this.check();
-                table.classList.add("used");
-                
-                this.score += this.board.clearFilled();
-            }
-
-            this.board.clearHighlight();
-
-            for (const child of this.panel.children) {
-                if (!child.classList.contains("used")) {
-                    return;
-                }
-            }
-
-            this.panel.innerHTML = "";
-            this.fill();
-        };
-
-        document.addEventListener("mousemove", mouseMove);
-        document.addEventListener("mouseup", mouseUp);
-    }
-
     handleEvent(event: MouseEvent | TouchEvent) {
         event.preventDefault();
 
@@ -277,8 +205,8 @@ class Game {
 
                 const field = this.getFieldFor(table);
 
-                table.style.setProperty("--dx", `${x + touch.clientX - target.getBoundingClientRect().left - (table.offsetWidth / 2)}`);
-                table.style.setProperty("--dy", `${y + touch.clientY - target.getBoundingClientRect().top - (table.offsetHeight / 2)}`);
+                table.style.setProperty("--dx", `${x + touch.clientX - (target.getBoundingClientRect().left + (table.offsetWidth / 2))}`);
+                table.style.setProperty("--dy", `${y + touch.clientY - (target.getBoundingClientRect().top + (table.offsetHeight / 2))}`);
 
                 this.board.clearHighlight();
 
