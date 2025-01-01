@@ -107,16 +107,21 @@ export default class Board {
 
     clearFilled() {
         const animation = this.table.closest<HTMLElement>(".app")?.style.getPropertyValue("--animation") || "none";
+        const gradual = this.settings.querySelector<HTMLInputElement>("#gradual")!;
         let previous = 0;
         const completing = this.getCompleting();
         for (const group of completing) {
-            for (const td of group) {
+            for (let index = 0; index < group.length; index++) {
+                const td = group[index];
                 td.classList.remove("filled");
                 if(animation !== "none"){
-                    td.classList.add(animation);
+                    const timeout = gradual.checked ? ((index/group.length)*1000) : 0;
                     window.setTimeout(() => {
-                        td.classList.remove(animation);
-                    }, 1000);
+                        td.classList.add(animation);
+                        window.setTimeout(() => {
+                            td.classList.remove(animation);
+                        }, 1000);
+                    }, timeout);
                 }
             }
             previous += group.length;

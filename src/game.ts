@@ -73,6 +73,10 @@ export default class Game {
                         <option value="spin" selected>Spin</option>
                     </select>
                 </div>
+                 <div class="setting">
+                    <label>Gradual Animation</label>
+                    <input type="checkbox" id="gradual" />
+                </div>
                 <button type="submit">OK</button>
                 <button type="reset">Reset</button>
             </form>
@@ -80,12 +84,14 @@ export default class Game {
 
         const theme = this.settings.querySelector<HTMLInputElement>("#theme")!;
         const animation = this.settings.querySelector<HTMLSelectElement>("#animation")!;
+        const gradual = this.settings.querySelector<HTMLInputElement>("#gradual")!;
 
         const saved = localStorage.getItem("settings");
         if (saved) {
             const settings = JSON.parse(saved);
             theme.value = settings.theme;
             animation.value = settings.animation;
+            gradual.checked = settings.gradual;
             this.updateTheme(theme.value);
             this.settings.querySelector<HTMLLabelElement>('label.color')!.style.backgroundColor = theme.value;
         }
@@ -101,6 +107,9 @@ export default class Game {
             this.app.style.setProperty("--animation", animation.value);
             this.saveSettings();
         };
+        gradual.oninput = () => {
+            this.saveSettings();
+        }
 
         const resetButton = this.settings.querySelector<HTMLButtonElement>('button[type="reset"]')!;
         resetButton.onclick = () => {
@@ -114,11 +123,13 @@ export default class Game {
     saveSettings() {
         const theme = this.settings.querySelector<HTMLInputElement>("#theme")!;
         const animation = this.settings.querySelector<HTMLSelectElement>("#animation")!;
+        const gradual = this.settings.querySelector<HTMLInputElement>("#gradual")!;
         localStorage.setItem(
             "settings",
             JSON.stringify({
                 theme: theme.value,
                 animation: animation.value,
+                gradual: gradual.checked
             })
         );
     }
