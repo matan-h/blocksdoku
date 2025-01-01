@@ -28,18 +28,7 @@ class Game {
         const aside = document.createElement("aside");
         const blank = document.createElement("div");
         aside.append(blank, this.panel);
-        
-        const largest = new Block(
-            [false, false, false],
-            [false, false, false],
-            [false, false, false],
-        );
 
-        blank.append(
-            largest.toHTML(), 
-            largest.toHTML(),
-            largest.toHTML(),
-        );
 
         this.app.classList.add("app");
         this.app.style.setProperty("position", "absolute");
