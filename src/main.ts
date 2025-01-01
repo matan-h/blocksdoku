@@ -7,4 +7,3 @@ game.app.style.setProperty("width", "100%");
 game.app.style.setProperty("height", "100%");
 
 document.body.append(game.app);
-game.settings.showModal();

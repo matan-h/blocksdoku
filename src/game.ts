@@ -3,6 +3,7 @@ class Game {
     gameOver = document.createElement("dialog");
     panel = document.createElement("div");
     app = document.createElement("div");
+    settingsButton = document.createElement("button");
     board = new Board();
 
     blocks = [
@@ -46,8 +47,9 @@ class Game {
         this.panel.addEventListener("touchstart", Game.blockTouch);
         this.panel.addEventListener("mousedown", this);
         this.app.style.setProperty("--color", "#3030FF");
-        this.app.append(this.board.table, aside);
+        this.app.append(this.board.table, aside, this.settingsButton);
         this.fill();
+        this.createSettingsDialog();
 
         this.gameOver.innerHTML = `
             <h1>Game Over</h1>
@@ -58,7 +60,12 @@ class Game {
         `;
         
         this.gameOver.onclose = () => this.reset();
+        this.settingsButton.textContent = "Settings";
+        this.settingsButton.addEventListener("click", () => this.settings.showModal());
+        this.app.append(this.gameOver);
+    }
 
+    createSettingsDialog() {
         this.settings.innerHTML = '<h1>Settings</h1><h2>Theme</h2>';
         const input = document.createElement("input");
         input.type = "color";
@@ -81,7 +88,7 @@ class Game {
 
         input.oninput = () => this.app.style.setProperty("--color", input.value);
 
-        this.app.append(this.settings, this.gameOver);
+        this.app.append(this.settings);
     }
 
     getFieldFor(block: HTMLTableElement) {

@@ -34,6 +34,18 @@ div.app {
 		color: #FFF;
 		font-family: Arial, Helvetica, sans-serif;
 	}
+
+    > button {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 1vmin;
+        font-size: 20px;
+        color: #FFF;
+        font-family: Arial, Helvetica, sans-serif;
+        background: transparent;
+        border: none;
+    }
 }
 
 aside {
