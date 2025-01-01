@@ -1,3 +1,13 @@
+:root {
+	--color-bg: #f0f0f0;
+	--color-primary: #3498db;
+	--color-secondary: #e74c3c;
+	--color-text: #2c3e50;
+	--color-light: #ecf0f1;
+	--color-dark: #34495e;
+	--color-highlight: rgba(151, 151, 151, 0.9);
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -6,89 +16,89 @@ html,
 body {
 	margin: 0;
 	padding: 0;
+	font-family: sans-serif;
+	background-color: var(--color-bg);
+	color: var(--color-text);
 }
 
-div.app {
-	justify-content: space-around;
-	background: var(--color);
-	align-items: center;
+.app {
 	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	min-height: 100vh;
+	padding: 20px;
+	gap: 20px;
+
+	@media (min-width: 768px) {
+		flex-direction: row;
+		justify-content: space-around;
+	}
 
 	counter-reset: score var(--score, 0);
 
-	@media (orientation: landscape) {
-		flex-direction: row;
-	}
-
-	@media (orientation: portrait) {
-		flex-direction: column;
-	}
-
 	&::after {
 		content: "Score: " counter(score);
-		position: absolute;
-		top: 0;
-		right: 0;
-		padding: 1vmin;
-		font-size: 20px;
-		color: #FFF;
-		font-family: Arial, Helvetica, sans-serif;
+		position: fixed;
+		top: 10px;
+		right: 10px;
+		padding: 10px;
+		font-size: 1.2em;
+		color: var(--color-light);
+		background-color: var(--color-dark);
+		border-radius: 5px;
 	}
 
-    > button {
-        position: absolute;
-        top: 0;
-        left: 0;
-        padding: 1vmin;
-        font-size: 20px;
-        color: #FFF;
-        font-family: Arial, Helvetica, sans-serif;
-        background: transparent;
-        border: none;
-    }
+	> button {
+		position: fixed;
+		top: 10px;
+		left: 10px;
+		padding: 10px;
+		font-size: 1.2em;
+		color: var(--color-light);
+		background-color: var(--color-dark);
+		border: none;
+		border-radius: 5px;
+		cursor: pointer;
+	}
 }
 
 aside {
-	display: grid;
-	background: #FFF;
-	justify-content: space-evenly;
-	border: 1px solid black;
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-light);
+	border: 1px solid var(--color-dark);
+	padding: 20px;
+	border-radius: 8px;
 	align-items: center;
-	padding: 10vmin;
+	gap: 10px;
 
 	> div {
 		display: flex;
-		gap: 10vmin;
-		grid-area: 1 / 1;
+		gap: 10px;
 		justify-content: center;
 		align-items: center;
-
-		@media (orientation: landscape) {
-			flex-direction: column;
-		}
-
-		@media (orientation: portrait) {
-			flex-direction: row;
-		}
+		flex-wrap: wrap;
 	}
 }
 
 table {
 	border-collapse: collapse;
-	background: #fff;
+	background-color: var(--color-light);
 	table-layout: fixed;
+	border-radius: 8px;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 td {
-	border: 1px solid black;
-	background: var(--color);
+	border: 1px solid var(--color-dark);
+	background-color: var(--color-primary);
 	width: 6vmin;
 	height: 6vmin;
-
-	transition: background 0.5s;
+	transition: background-color 0.3s ease;
 
 	&.dark:not(.filled) {
-		opacity: 0.25;
+		opacity: 0.1;
 	}
 
 	&.light:not(.filled) {
@@ -105,7 +115,7 @@ td {
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: rgba(151, 151, 151, 0.9);
+			background: var(--color-highlight);
 		}
 	}
 
@@ -135,23 +145,31 @@ table.block {
 form.score::before {
 	content: "You have scored " counter(score) " points";
 	display: block;
+	text-align: center;
+	margin-bottom: 10px;
+	font-size: 1.2em;
 }
 
 dialog {
 	border-radius: 10px;
-	width: 500px;
+	width: 90%;
+	max-width: 500px;
 	border: 0;
+	padding: 20px;
+	background-color: var(--color-light);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: sans-serif;
 
 	h1 {
 		text-align: center;
-		font-size: 1.5em;
+		font-size: 1.8em;
+		margin-bottom: 20px;
 	}
 
 	h2 {
-		margin: 0;
-		font-size: 1.25em;
+		margin: 10px 0;
+		font-size: 1.4em;
 	}
 
 	input[type="color"] {
@@ -162,21 +180,30 @@ dialog {
 
 	label.color {
 		display: block;
-		height: 32px;
-		margin: 18px 0;
+		height: 40px;
+		margin: 15px 0;
 		border-radius: 8px;
-		outline: 2px solid black;
-		background-color: var(--color);
+		outline: 2px solid var(--color-dark);
+		background-color: var(--color-primary);
+		cursor: pointer;
 	}
 
 	button {
-		margin: auto;
+		margin: 20px auto 10px;
 		display: block;
-		background-color: transparent;
-		border: 1px solid black;
-		border-radius: 2px;
+		background-color: var(--color-primary);
+		color: var(--color-light);
+		border: 1px solid var(--color-dark);
+		border-radius: 5px;
+		padding: 10px 20px;
 		outline: none !important;
-		font-size: 1em;
+		font-size: 1.1em;
+		cursor: pointer;
+		transition: background-color 0.3s ease;
+
+		&:hover {
+			background-color: var(--color-secondary);
+		}
 	}
 
 	&::backdrop {
