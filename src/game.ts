@@ -37,7 +37,6 @@ export default class Game {
 
         this.panel.addEventListener("touchstart", this, { passive: false });
         this.panel.addEventListener("mousedown", this);
-        this.app.style.setProperty("--color", "#3030FF");
         this.app.append(this.board.table, aside, this.settingsButton);
         this.fill();
         this.createSettingsDialog();
