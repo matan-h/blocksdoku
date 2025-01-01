@@ -235,7 +235,7 @@ dialog {
 	}
 
 	100% {
-		transform: translate(calc(50px * (Math.random() - 0.5)), calc(50px * (Math.random() - 0.5))) scale(0);
+		transform: translate(calc(50px * (random() - 0.5)), calc(50px * (random() - 0.5))) scale(0);
 		opacity: 0;
 	}
 }
