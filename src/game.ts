@@ -31,7 +31,6 @@ class Game {
 
 
         this.app.classList.add("app");
-        this.app.style.setProperty("position", "absolute");
 
         this.panel.addEventListener("touchstart", Game.blockTouch);
         this.panel.addEventListener("mousedown", this);
