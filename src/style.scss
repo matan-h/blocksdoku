@@ -229,18 +229,16 @@ dialog {
 
 // effects (GPT-written)
 .explode{ animation: explode 0.5s forwards}
-.shatter{ animation: shatter 1s forwards;}
+.fade-out{ animation: fade-out 1s forwards;}
 .ripple{ animation: ripple 1s ease-out forwards;}
 .spin{ animation: spin 1s forwards;}
 
-@keyframes shatter {
+@keyframes fade-out {
 	0% {
-		transform: scale(1);
 		opacity: 1;
 	}
 
 	100% {
-		transform: translate(calc(50px * (random() - 0.5)), calc(50px * (random() - 0.5))) scale(0);
 		opacity: 0;
 	}
 }

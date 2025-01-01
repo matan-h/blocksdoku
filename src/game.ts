@@ -67,10 +67,10 @@ export default class Game {
                     <label>Animation</label>
                     <select id="animation">
                         <option value="none">None</option>
-                        <option value="shatter">Shatter</option>
+                        <option value="fade-out">Fade out</option>
                         <option value="explode">Explode</option>
                         <option value="ripple">Ripple</option>
-                        <option value="spin">Spin</option>
+                        <option value="spin" selected>Spin</option>
                     </select>
                 </div>
                 <button type="submit">OK</button>
