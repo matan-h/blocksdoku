@@ -64,6 +64,10 @@ body {
 }
 
 aside {
+	position: absolute;
+	top: 50%;
+	left: 10px;
+	transform: translateY(-50%);
 	display: flex;
 	flex-direction: column;
 	background-color: var(--color-light);
