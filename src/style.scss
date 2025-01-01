@@ -1,11 +1,12 @@
 :root {
 	--color-bg: #f0f0f0;
-	--color-primary: #3498db;
+	--color-primary: #2299e9;
 	--color-secondary: #e74c3c;
 	--color-text: #2c3e50;
 	--color-light: #ecf0f1;
 	--color-dark: #34495e;
 	--color-highlight: rgba(151, 151, 151, 0.9);
+	--color: #3030FF; // will be changed in JS.
 }
 
 * {
@@ -112,7 +113,7 @@ td {
 	height: 8vmin;
 
 	&.dark:not(.filled) {
-		opacity: 0.1;
+		opacity: 0.2;
 	}
 
 	&.light:not(.filled) {
