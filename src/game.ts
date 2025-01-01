@@ -28,7 +28,7 @@ export default class Game {
     ];
 
     constructor() {
-        const aside = document.createElement("aside");
+        const aside = document.createElement("div");
         const blank = document.createElement("div");
         aside.append(blank, this.panel);
 

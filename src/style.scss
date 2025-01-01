@@ -31,10 +31,19 @@ body {
 	gap: 20px;
     flex-wrap: wrap;
 	counter-reset: score var(--score, 0);
+    width: 100%;
+
+    > * {
+        max-width: 100%;
+    }
+
+    > table {
+        max-width: 90vmin;
+        max-height: 90vmin;
+    }
 
 	@media (min-width: 768px) {
-		flex-direction: row;
-		justify-content: space-around;
+		flex-direction: column;
         flex-wrap: nowrap;
 	}
 
@@ -65,37 +74,24 @@ body {
 	}
 }
 
-aside {
-	position: absolute;
-	display: flex;
-	flex-direction: column;
-	background-color: var(--color-light);
-	border: 1px solid var(--color-dark);
-	padding: 20px;
-	border-radius: 8px;
-	align-items: center;
-	gap: 10px;
-	
-	@media (min-width: 768px) {
-		top: 50%;
-		right: 10px;
-		transform: translateY(-50%);
-	}
-
-	@media (max-width: 767px) {
-		position: fixed;
-		bottom: 10px;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-
-	> div {
-		display: flex;
-		gap: 15px;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-	}
+.app > div {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-light);
+    border: 1px solid var(--color-dark);
+    padding: 20px;
+    border-radius: 8px;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+    
+    > div {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 }
 
 table {
