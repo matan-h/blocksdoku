@@ -97,6 +97,7 @@ export default class Game {
         }
 
         this.app.style.setProperty("--animation", animation.value);
+        this.app.style.setProperty("--gradual", ''+(+gradual.checked));
 
         theme.oninput = () => {
             this.updateTheme(theme.value);
@@ -108,6 +109,7 @@ export default class Game {
             this.saveSettings();
         };
         gradual.oninput = () => {
+            this.app.style.setProperty("--gradual", ''+(+gradual.checked)); // bool->int->str
             this.saveSettings();
         }
 
