@@ -56,46 +56,62 @@ export default class Game {
     }
 
     createSettingsDialog() {
-        this.settings.innerHTML = '<h1>Settings</h1><h2>Theme</h2>';
-        const input = document.createElement("input");
-        input.type = "color";
-        input.value = "#3030ff";
-
-        const animation = document.createElement("select");
-        animation.innerHTML = `
-            <option value="none">None</option>
-            <option value="shatter">Shatter</option>
-            <option value="explode">Explode</option>
-            <option value="ripple">Ripple</option>
-            <option value="spin">Spin</option>
+        this.settings.innerHTML = `
+            <h1>Settings</h1>
+            <form method="dialog">
+                <div class="setting">
+                    <label>Theme</label>
+                    <input type="color" value="#3030ff" id="theme"/>
+                </div>
+                <div class="setting">
+                    <label>Animation</label>
+                    <select id="animation">
+                        <option value="none">None</option>
+                        <option value="shatter">Shatter</option>
+                        <option value="explode">Explode</option>
+                        <option value="ripple">Ripple</option>
+                        <option value="spin">Spin</option>
+                    </select>
+                </div>
+                <button type="submit">OK</button>
+            </form>
         `;
-        animation.value = "shatter";
-        const animationLabel = document.createElement("label");
-        animationLabel.textContent = "Animation";
-        animationLabel.appendChild(animation);
 
-        const label = document.createElement("label");
-        label.classList.add("color");
-        label.appendChild(input);
-        
+        const theme = this.settings.querySelector<HTMLInputElement>("#theme")!;
+        const animation = this.settings.querySelector<HTMLSelectElement>("#animation")!;
 
-        const form = document.createElement("form");
-        form.method = "dialog";
-        form.appendChild(label);
-        form.appendChild(animationLabel);
+        const saved = localStorage.getItem("settings");
+        if (saved) {
+            const settings = JSON.parse(saved);
+            theme.value = settings.theme;
+            animation.value = settings.animation;
+        }
 
-        const ok = document.createElement("button");
-        ok.type = "submit";
-        ok.textContent = "OK";
-
-        form.appendChild(ok);
-        this.settings.appendChild(form);
-
-        input.oninput = () => this.app.style.setProperty("--color", input.value);
-        animation.oninput = () => this.app.style.setProperty("--animation", animation.value);
+        this.app.style.setProperty("--color", theme.value);
         this.app.style.setProperty("--animation", animation.value);
 
+        theme.oninput = () => {
+            this.app.style.setProperty("--color", theme.value);
+            this.saveSettings();
+        };
+        animation.oninput = () => {
+            this.app.style.setProperty("--animation", animation.value);
+            this.saveSettings();
+        };
+
         this.app.append(this.settings);
+    }
+
+    saveSettings() {
+        const theme = this.settings.querySelector<HTMLInputElement>("#theme")!;
+        const animation = this.settings.querySelector<HTMLSelectElement>("#animation")!;
+        localStorage.setItem(
+            "settings",
+            JSON.stringify({
+                theme: theme.value,
+                animation: animation.value,
+            })
+        );
     }
 
     set score(value: number) {
