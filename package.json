@@ -5,7 +5,9 @@
 	"type": "module",
 	"scripts": {
 		"build:sass": "sass src:dist",
-		"build:ts": "tsc --outDir dist"
+		"build:ts": "tsc --outDir dist",
+		"build":"pnpm build:sass && pnpm build:ts"
+		
 	},
 	"devDependencies": {
 		"sass": "1.78.0",
