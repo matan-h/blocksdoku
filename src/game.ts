@@ -44,6 +44,7 @@ export default class Game {
         this.gameOver.innerHTML = `
             <h1>Game Over</h1>
             <form method="dialog" class="score">
+                <div id="highScore"></div>
                 <button type="submit">Reset</button>
             </form>
         `;
@@ -52,6 +53,7 @@ export default class Game {
         this.settingsButton.textContent = "Settings";
         this.settingsButton.addEventListener("click", () => this.settings.showModal());
         this.app.append(this.gameOver);
+        this.loadHighScore();
     }
 
     createSettingsDialog() {
@@ -144,10 +146,36 @@ export default class Game {
 
     set score(value: number) {
         this.app.style.setProperty("--score", `${value}`);
+        if (value > this.highScore) {
+            this.highScore = value;
+            this.saveHighScore();
+        }
     }
 
     get score() {
         return +this.app.style.getPropertyValue("--score");
+    }
+
+    set highScore(value: number) {
+        this.gameOver.querySelector<HTMLDivElement>("#highScore")!.textContent = `High Score: ${value}`;
+        this._highScore = value;
+    }
+
+    get highScore() {
+        return this._highScore;
+    }
+
+    private _highScore = 0;
+
+    loadHighScore() {
+        const saved = localStorage.getItem("highScore");
+        if (saved) {
+            this.highScore = parseInt(saved, 10);
+        }
+    }
+
+    saveHighScore() {
+        localStorage.setItem("highScore", String(this.highScore));
     }
 
     fill() {
