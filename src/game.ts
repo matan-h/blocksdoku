@@ -157,6 +157,13 @@ export default class Game {
         if (target.tagName !== "TD") {
             return;
         }
+        const highlight = (field: [number, number]
+        ) =>{
+            if (field && this.board.canPlace(...field, table)) {
+                let mark = this.board.mark(...field, table, "highlight");
+                this.board.getCompleting(mark).forEach(e=>e.forEach(el=>el.classList.add("match")))
+            }
+        }
 
         let mouseMove: (event: MouseEvent | TouchEvent) => void;
         let mouseUp: (event: MouseEvent | TouchEvent) => void;
@@ -178,10 +185,7 @@ export default class Game {
                 table.style.setProperty("--dy", `${y + event.movementY}`);
 
                 this.board.clearHighlights();
-
-                if (field && this.board.canPlace(...field, table)) {
-                    this.board.mark(...field, table, "highlight");
-                }
+                highlight(field)
             };
 
             mouseUp = (event: MouseEvent) => {
@@ -236,11 +240,7 @@ export default class Game {
                 table.style.setProperty("--dy", `${y + touch.clientY - (target.getBoundingClientRect().top + (table.offsetHeight / 2))}`);
 
                 this.board.clearHighlights();
-
-                if (field && this.board.canPlace(...field, table)) {
-                    let mark = this.board.mark(...field, table, "highlight");
-                    this.board.getCompleting(mark).forEach(e=>e.forEach(el=>el.classList.add("match")))
-                }
+                highlight(field)
             };
 
             mouseUp = (event: TouchEvent) => {
