@@ -150,106 +150,132 @@ export default class Game {
 
     handleEvent(event: MouseEvent | TouchEvent) {
         event.preventDefault();
-    
+
         const target = event.target as HTMLElement;
         const table = target.closest("table")!;
-    
+
         if (target.tagName !== "TD") {
             return;
         }
-    
-        const handleMove = (dx: number, dy: number) => {
-            const x = +table.style.getPropertyValue("--dx");
-            const y = +table.style.getPropertyValue("--dy");
-    
-            const field = this.board.getFieldFor(table);
-    
-            table.style.setProperty("--dx", `${x + dx}`);
-            table.style.setProperty("--dy", `${y + dy}`);
-    
-            this.board.clearHighlights();
-    
-            if (field && this.board.canPlace(...field, table)) {
-                const mark = this.board.mark(...field, table, "highlight");
-                this.board.getCompleting(mark).forEach(row =>
-                    row.forEach(cell => cell.classList.add("match"))
-                );
-            }
-        };
-    
-        const handleUp = () => {
-            const field = this.board.getFieldFor(table);
-    
-            table.style.removeProperty("--dx");
-            table.style.removeProperty("--dy");
-    
-            if (field && this.board.canPlace(...field, table)) {
-                this.score += table.querySelectorAll("td:not(.empty)").length;
-                this.board.mark(...field, table, "filled");
-    
-                this.check();
-                table.classList.add("used");
-    
-                this.score += this.board.clearFilled();
-            }
-    
-            this.board.clearHighlights();
-    
-            for (const child of this.panel.children) {
-                if (!child.classList.contains("used")) {
-                    return;
-                }
-            }
-    
-            this.panel.innerHTML = "";
-            this.fill();
-        };
-    
-        let moveHandler: (event: MouseEvent | TouchEvent) => void;
-        let upHandler: (event: MouseEvent | TouchEvent) => void;
-    
+
+        let mouseMove: (event: MouseEvent | TouchEvent) => void;
+        let mouseUp: (event: MouseEvent | TouchEvent) => void;
+
         if (event instanceof MouseEvent) {
             if (event.button !== 0) {
                 return;
             }
-    
-            moveHandler = (e: MouseEvent) => {
-                e.preventDefault();
-                handleMove(e.movementX, e.movementY);
+
+            mouseMove = (event: MouseEvent) => {
+                event.preventDefault();
+
+                const x = +table.style.getPropertyValue("--dx");
+                const y = +table.style.getPropertyValue("--dy");
+
+                const field = this.board.getFieldFor(table);
+
+                table.style.setProperty("--dx", `${x + event.movementX}`);
+                table.style.setProperty("--dy", `${y + event.movementY}`);
+
+                this.board.clearHighlights();
+
+                if (field && this.board.canPlace(...field, table)) {
+                    this.board.mark(...field, table, "highlight");
+                }
             };
-    
-            upHandler = (e: MouseEvent) => {
-                e.preventDefault();
-                document.removeEventListener("mousemove", moveHandler);
-                document.removeEventListener("mouseup", upHandler);
-                handleUp();
+
+            mouseUp = (event: MouseEvent) => {
+                event.preventDefault();
+
+                document.removeEventListener("mousemove", mouseMove);
+                document.removeEventListener("mouseup", mouseUp);
+
+                const field = this.board.getFieldFor(table);
+
+                table.style.removeProperty("--dx");
+                table.style.removeProperty("--dy");
+
+                if (field && this.board.canPlace(...field, table)) {
+                    this.score += table.querySelectorAll("td:not(.empty)").length;
+                    this.board.mark(...field, table, "filled");
+
+                    this.check();
+                    table.classList.add("used");
+
+                    this.score += this.board.clearFilled();
+                }
+
+                this.board.clearHighlights();
+
+                for (const child of this.panel.children) {
+                    if (!child.classList.contains("used")) {
+                        return;
+                    }
+                }
+
+                this.panel.innerHTML = "";
+                this.fill();
             };
-    
-            document.addEventListener("mousemove", moveHandler);
-            document.addEventListener("mouseup", upHandler);
+
+            document.addEventListener("mousemove", mouseMove);
+            document.addEventListener("mouseup", mouseUp);
         } else if (event instanceof TouchEvent) {
-            const touchStart = event.changedTouches[0];
-            const initialRect = table.getBoundingClientRect();
-            const initialOffsetX = initialRect.left + table.offsetWidth / 2;
-            const initialOffsetY = initialRect.top + table.offsetHeight / 2;
-    
-            moveHandler = (e: TouchEvent) => {
-                e.preventDefault();
-                const touch = e.changedTouches[0];
-                handleMove(
-                    touch.clientX - initialOffsetX,
-                    touch.clientY - initialOffsetY
-                );
+
+            mouseMove = (event: TouchEvent) => {
+                event.preventDefault();
+
+                const x = +table.style.getPropertyValue("--dx");
+                const y = +table.style.getPropertyValue("--dy");
+
+                const touch = event.changedTouches[0];
+                const target = touch.target as HTMLElement;
+
+                const field = this.board.getFieldFor(table);
+
+                table.style.setProperty("--dx", `${x + touch.clientX - (target.getBoundingClientRect().left + (table.offsetWidth / 2))}`);
+                table.style.setProperty("--dy", `${y + touch.clientY - (target.getBoundingClientRect().top + (table.offsetHeight / 2))}`);
+
+                this.board.clearHighlights();
+
+                if (field && this.board.canPlace(...field, table)) {
+                    let mark = this.board.mark(...field, table, "highlight");
+                    this.board.getCompleting(mark).forEach(e=>e.forEach(el=>el.classList.add("match")))
+                }
             };
-    
-            upHandler = (e: TouchEvent) => {
-                document.removeEventListener("touchmove", moveHandler);
-                document.removeEventListener("touchend", upHandler);
-                handleUp();
+
+            mouseUp = (event: TouchEvent) => {
+                document.removeEventListener("touchmove", mouseMove);
+                document.removeEventListener("touchend", mouseUp);
+
+                const field = this.board.getFieldFor(table);
+
+                table.style.removeProperty("--dx");
+                table.style.removeProperty("--dy");
+
+                if (field && this.board.canPlace(...field, table)) {
+                    this.score += table.querySelectorAll("td:not(.empty)").length;
+                    this.board.mark(...field, table, "filled");
+
+                    this.check();
+                    table.classList.add("used");
+
+                    this.score += this.board.clearFilled();
+                }
+
+                this.board.clearHighlights();
+
+                for (const child of this.panel.children) {
+                    if (!child.classList.contains("used")) {
+                        return;
+                    }
+                }
+
+                this.panel.innerHTML = "";
+                this.fill();
             };
-    
-            document.addEventListener("touchmove", moveHandler, { passive: false });
-            document.addEventListener("touchend", upHandler);
+
+            document.addEventListener("touchmove", mouseMove, { passive: false });
+            document.addEventListener("touchend", mouseUp);
         }
     }
     
