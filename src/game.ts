@@ -35,7 +35,7 @@ export default class Game {
 
         this.app.classList.add("app");
 
-        this.panel.addEventListener("touchstart", this);
+        this.panel.addEventListener("touchstart", this, { passive: false });
         this.panel.addEventListener("mousedown", this);
         this.app.style.setProperty("--color", "#3030FF");
         this.app.append(this.board.table, aside, this.settingsButton);
@@ -194,7 +194,6 @@ export default class Game {
             document.addEventListener("mousemove", mouseMove);
             document.addEventListener("mouseup", mouseUp);
         } else if (event instanceof TouchEvent) {
-            const touch = event.changedTouches[0];
 
             mouseMove = (event: TouchEvent) => {
                 event.preventDefault();
@@ -218,8 +217,6 @@ export default class Game {
             };
 
             mouseUp = (event: TouchEvent) => {
-                event.preventDefault();
-
                 document.removeEventListener("touchmove", mouseMove);
                 document.removeEventListener("touchend", mouseUp);
 
@@ -250,7 +247,7 @@ export default class Game {
                 this.fill();
             };
 
-            document.addEventListener("touchmove", mouseMove);
+            document.addEventListener("touchmove", mouseMove, { passive: false });
             document.addEventListener("touchend", mouseUp);
         }
     }
