@@ -107,7 +107,7 @@ table {
 
 td {
 	border: 1px solid var(--color-dark);
-	background-color: var(--color-primary);
+	background-color: var(--color);
 	width: 8vmin;
 	height: 8vmin;
 
@@ -183,27 +183,21 @@ dialog {
 		font-size: 1.4em;
 	}
 
-    .setting {
-        display: flex;
-        flex-direction: column;
-        margin-bottom: 15px;
+	input[type="color"] {
+		visibility: hidden;
+		width: 0;
+		position: absolute;
+	}
 
-        label {
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-
-        input[type="color"],
-        select {
-            padding: 10px;
-            border: 1px solid var(--color-dark);
-            border-radius: 5px;
-            background-color: var(--color-light);
-            color: var(--color-text);
-            font-size: 1em;
-            outline: none;
-        }
-    }
+	label.color {
+		display: block;
+		height: 40px;
+		margin: 15px 0;
+		border-radius: 8px;
+		outline: 2px solid var(--color-dark);
+		background-color: var(--color-primary);
+		cursor: pointer;
+	}
 
 	button {
 		margin: 20px auto 10px;
