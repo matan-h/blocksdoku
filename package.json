@@ -4,13 +4,13 @@
 	"version": "0.0.1",
 	"type": "module",
 	"scripts": {
-		"build:sass": "sass src:dist",
-		"build:ts": "tsc --outDir dist",
-		"build":"pnpm build:sass && pnpm build:ts"
-		
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview"
 	},
 	"devDependencies": {
 		"sass": "1.78.0",
-		"typescript": "5.5.4"
+		"typescript": "5.5.4",
+        "vite": "^5.0.0"
 	}
 }

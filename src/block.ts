@@ -1,4 +1,4 @@
-class Block {
+export default class Block {
     shape: boolean[][];
 
     constructor(...shape: boolean[][]) {

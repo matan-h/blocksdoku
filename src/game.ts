@@ -1,4 +1,7 @@
-class Game {
+import Block from "./block";
+import Board from "./board";
+
+export default class Game {
     settings = document.createElement("dialog");
     gameOver = document.createElement("dialog");
     panel = document.createElement("div");
