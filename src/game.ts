@@ -55,6 +55,26 @@ export default class Game {
         this.app.append(this.gameOver);
     }
 
+    getFieldFor(block: HTMLTableElement) {
+        const blockBBOX = block.getBoundingClientRect();
+
+        for (let i = 0; i < this.board.table.rows.length; i++) {
+            for (let j = 0; j < this.board.table.rows[i].cells.length; j++) {
+                const tdBBOX = this.board.table.rows[i].cells[j].getBoundingClientRect();
+                const threshold = 10;
+
+                if (
+                    Math.abs(tdBBOX.left - blockBBOX.left) < threshold &&
+                    Math.abs(tdBBOX.top - blockBBOX.top) < threshold
+                ) {
+                    return [j, i] as [number, number];
+                }
+            }
+        }
+
+        return null;
+    }
+
     createSettingsDialog() {
         this.settings.innerHTML = '<h1>Settings</h1><h2>Theme</h2>';
         const input = document.createElement("input");
@@ -79,26 +99,6 @@ export default class Game {
         input.oninput = () => this.app.style.setProperty("--color", input.value);
 
         this.app.append(this.settings);
-    }
-
-    getFieldFor(block: HTMLTableElement) {
-        const blockBBOX = block.getBoundingClientRect();
-
-        for (let i = 0; i < this.board.table.rows.length; i++) {
-            for (let j = 0; j < this.board.table.rows[i].cells.length; j++) {
-                const tdBBOX = this.board.table.rows[i].cells[j].getBoundingClientRect();
-                const threshold = 10;
-
-                if (
-                    Math.abs(tdBBOX.left - blockBBOX.left) < threshold &&
-                    Math.abs(tdBBOX.top - blockBBOX.top) < threshold
-                ) {
-                    return [j, i] as [number, number];
-                }
-            }
-        }
-
-        return null;
     }
 
     set score(value: number) {
@@ -146,7 +146,7 @@ export default class Game {
                 const x = +table.style.getPropertyValue("--dx");
                 const y = +table.style.getPropertyValue("--dy");
 
-                const field = this.getFieldFor(table);
+                const field = this.board.getFieldFor(table);
 
                 table.style.setProperty("--dx", `${x + event.movementX}`);
                 table.style.setProperty("--dy", `${y + event.movementY}`);
@@ -204,7 +204,7 @@ export default class Game {
                 const touch = event.changedTouches[0];
                 const target = touch.target as HTMLElement;
 
-                const field = this.getFieldFor(table);
+                const field = this.board.getFieldFor(table);
 
                 table.style.setProperty("--dx", `${x + touch.clientX - (target.getBoundingClientRect().left + (table.offsetWidth / 2))}`);
                 table.style.setProperty("--dy", `${y + touch.clientY - (target.getBoundingClientRect().top + (table.offsetHeight / 2))}`);

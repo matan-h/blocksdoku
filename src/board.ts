@@ -32,6 +32,26 @@ export default class Board {
         }
     }
 
+    getFieldFor(block: HTMLTableElement) {
+        const blockBBOX = block.getBoundingClientRect();
+
+        for (let i = 0; i < this.table.rows.length; i++) {
+            for (let j = 0; j < this.table.rows[i].cells.length; j++) {
+                const tdBBOX = this.table.rows[i].cells[j].getBoundingClientRect();
+                const threshold = 20;
+
+                if (
+                    Math.abs(tdBBOX.left - blockBBOX.left) < threshold &&
+                    Math.abs(tdBBOX.top - blockBBOX.top) < threshold
+                ) {
+                    return [j, i] as [number, number];
+                }
+            }
+        }
+
+        return null;
+    }
+
     canPlace(x: number, y: number, block: HTMLTableElement) {
         for (let i = 0; i < block.rows.length; i++) {
             for (let j = 0; j < block.rows[i].cells.length; j++) {
