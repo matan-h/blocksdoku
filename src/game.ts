@@ -74,6 +74,7 @@ export default class Game {
                     </select>
                 </div>
                 <button type="submit">OK</button>
+                <button type="reset">Reset</button>
             </form>
         `;
 
@@ -97,6 +98,12 @@ export default class Game {
         animation.oninput = () => {
             this.app.style.setProperty("--animation", animation.value);
             this.saveSettings();
+        };
+
+        const resetButton = this.settings.querySelector<HTMLButtonElement>('button[type="reset"]')!;
+        resetButton.onclick = () => {
+            localStorage.clear();
+            window.location.reload();
         };
 
         this.app.append(this.settings);
