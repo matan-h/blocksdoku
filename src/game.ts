@@ -285,7 +285,9 @@ export default class Game {
         let over = true;
 
         for (const table of tables) {
-            over &&= table.classList.toggle("disabled", this.board.isDisabled(table));
+            const isDisabled = this.board.isDisabled(table);
+            table.classList.toggle("disabled", isDisabled);
+            over = over && isDisabled;
         }
 
         over && setTimeout(() => this.gameOver.showModal(), 1000);
