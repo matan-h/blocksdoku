@@ -53,19 +53,7 @@ export default class Game {
         this.settingsButton.textContent = "Settings";
         this.settingsButton.addEventListener("click", () => this.settings.showModal());
         this.app.append(this.gameOver);
-        this.createHighScoreDisplay();
         this.loadHighScore();
-    }
-
-    createHighScoreDisplay() {
-        const highScoreDisplay = document.createElement("div");
-        highScoreDisplay.classList.add("high-score");
-        this.app.appendChild(highScoreDisplay);
-    }
-
-    updateHighScoreDisplay() {
-        const highScoreDisplay = this.app.querySelector<HTMLDivElement>(".high-score")!;
-        highScoreDisplay.textContent = `High Score: ${this.highScore}`;
     }
 
     createSettingsDialog() {
@@ -171,7 +159,7 @@ export default class Game {
     set highScore(value: number) {
         this.gameOver.querySelector<HTMLDivElement>("#highScore")!.textContent = `High Score: ${value}`;
         this._highScore = value;
-        this.updateHighScoreDisplay();
+        this.app.querySelector<HTMLDivElement>(".high-score")!.textContent = `High Score: ${value}`;
     }
 
     get highScore() {
@@ -185,7 +173,7 @@ export default class Game {
         if (saved) {
             this.highScore = parseInt(saved, 10);
         }
-        this.updateHighScoreDisplay();
+        this.app.querySelector<HTMLDivElement>(".high-score")!.textContent = `High Score: ${this.highScore}`;
     }
 
     saveHighScore() {
