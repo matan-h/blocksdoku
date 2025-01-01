@@ -41,7 +41,6 @@ class Game {
 
         this.gameOver.innerHTML = `
             <h1>Game Over</h1>
-            <h2>Result</h2>
             <form method="dialog" class="score">
                 <button type="submit">Reset</button>
             </form>
