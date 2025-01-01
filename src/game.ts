@@ -61,13 +61,28 @@ export default class Game {
         input.type = "color";
         input.value = "#3030ff";
 
+        const animation = document.createElement("select");
+        animation.innerHTML = `
+            <option value="none">None</option>
+            <option value="shatter">Shatter</option>
+            <option value="explode">Explode</option>
+            <option value="ripple">Ripple</option>
+            <option value="spin">Spin</option>
+        `;
+        animation.value = "shatter";
+        const animationLabel = document.createElement("label");
+        animationLabel.textContent = "Animation";
+        animationLabel.appendChild(animation);
+
         const label = document.createElement("label");
         label.classList.add("color");
         label.appendChild(input);
+        
 
         const form = document.createElement("form");
         form.method = "dialog";
         form.appendChild(label);
+        form.appendChild(animationLabel);
 
         const ok = document.createElement("button");
         ok.type = "submit";
@@ -77,6 +92,8 @@ export default class Game {
         this.settings.appendChild(form);
 
         input.oninput = () => this.app.style.setProperty("--color", input.value);
+        animation.oninput = () => this.app.style.setProperty("--animation", animation.value);
+        this.app.style.setProperty("--animation", animation.value);
 
         this.app.append(this.settings);
     }

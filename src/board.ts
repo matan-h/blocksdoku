@@ -106,22 +106,20 @@ export default class Board {
     
 
     clearFilled() {
+        const animation = this.table.closest<HTMLElement>(".app")?.style.getPropertyValue("--animation") || "none";
         let previous = 0;
         const completing = this.getCompleting();
         for (const group of completing) {
             for (const td of group) {
-                td.style.setProperty("transition-delay", `${previous / 20}s`);
-                td.style.setProperty("transition-duration", `${group.length / 20}s`);
-                td.style.setProperty("transition-property", "opacity");
-                window.setTimeout(
-                    function () {
-                        td.style.removeProperty("transition-delay");
-                        td.style.removeProperty("transition-duration");
-                        td.style.removeProperty("transition-property");
-                    },
-                    (previous + group.length) * 50
-                );
-                td.classList.remove("filled");
+                if(animation !== "none"){
+                    td.classList.add(animation);
+                    window.setTimeout(() => {
+                        td.classList.remove(animation);
+                        td.classList.remove("filled");
+                    }, 1000);
+                }else{
+                    td.classList.remove("filled");
+                }
             }
             previous += group.length;
         }
