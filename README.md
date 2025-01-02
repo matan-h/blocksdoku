@@ -12,10 +12,9 @@ To install BlocksDoku, you need to have [Node.js](https://nodejs.org) installed.
 
 1. Clone this repository to your local machine: `git clone https://github.com/your-username/blocksdoku.git`
 2. Navigate to the project folder: `cd blocksdoku`
-3. Install the dependencies: `npm install`
-4. Build the TypeScript files: `npm run build:ts`
-5. Build the Sass files: `npm run build:sass`
-6. Open the `index.html` file in your browser.
+3. Install the dependencies: `pnpm install`
+4. Build the project: `pnpm build`
+6. Open the `dist/index.html` file in your browser.
 
 ## License
 

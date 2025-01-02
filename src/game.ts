@@ -24,7 +24,12 @@ export default class Game {
 
         new Block([true, true, true], [false, false, true], [false, false, true]),
         new Block([false, true], [true, true, true]),
-        new Block([false, true], [true])
+        new Block([false, true], [true]),
+        //
+        new Block([true], [true], [true, true]), 
+        new Block([false, false, true], [false, true], [true]),
+        new Block([true], [false, true], [false, false, true])
+
     ];
 
     constructor() {

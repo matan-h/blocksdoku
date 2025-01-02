@@ -6,8 +6,8 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       manifest: {
-        name: 'Blockdoku',
-        short_name: 'Blockdoku',
+        name: 'BlocksDoku',
+        short_name: 'BlocksDoku',
         description: 'A simple block puzzle game.',
         theme_color: '#3030ff',
       },
