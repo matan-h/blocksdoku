@@ -3,6 +3,9 @@
     "short_name": "Blockdoku",
     "description": "A simple block puzzle game.",
     "theme_color": "#3030ff",
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait",
     "icons": [
       {
         "src": "pwa-192x192.png",
