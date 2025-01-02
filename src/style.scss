@@ -125,6 +125,30 @@ body {
 		align-items: center;
 		flex-wrap: wrap;
 	}
+    >.combo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 3em;
+        color: var(--color-light);
+        background-color: var(--color-dark);
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 100;
+        animation: combo-pop 0.5s ease-out;
+    }
+}
+
+@keyframes combo-pop {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 table {

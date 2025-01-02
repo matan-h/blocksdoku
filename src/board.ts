@@ -113,6 +113,10 @@ export default class Board {
         // const gradual = {checked:true};
         let previous = 0;
         const completing = this.getCompleting();
+        const combo = completing.length;
+        if(combo > 1){
+            this.showCombo(combo);
+        }
         for (const group of completing) {
             for (let index = 0; index < group.length; index++) {
                 const td = group[index];
@@ -134,6 +138,17 @@ export default class Board {
             previous += group.length;
         }
         return previous;
+    }
+
+    showCombo(combo:number){
+        const app = this.table.closest<HTMLElement>(".app")!;
+        const comboDisplay = document.createElement("div");
+        comboDisplay.classList.add("combo");
+        comboDisplay.textContent = `Combo X${combo}!`;
+        app.appendChild(comboDisplay);
+        setTimeout(() => {
+            comboDisplay.remove();
+        }, 1000);
     }
 
     getCompleting(block:HTMLTableCellElement[]=[]) : HTMLTableCellElement[][]{
