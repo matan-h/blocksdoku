@@ -74,6 +74,9 @@ body {
 		cursor: pointer;
 	}
     >.high-score {
+        margin-top:20px;
+		border: 2px solid var(--color-dark);
+		border-radius: 100px;
         position: fixed;
         top: 40px;
         right: 10px;
@@ -81,7 +84,8 @@ body {
         font-size: 1.2em;
         color: var(--color-light);
         background-color: var(--color-dark);
-        border-radius: 5px;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        transform-origin: top right;
     }
 }
 
@@ -115,8 +119,9 @@ body {
 	padding: 20px;
 	border-radius: 8px;
 	align-items: center;
-	gap: 10px;
-	margin-top: 20px;
+
+	height: calc((min(8vmin, 66px) * 3) + 40px);
+	width:calc(min(8vmin, 66px) * 9 + 40px);
 
 	>div {
 		display: flex;
