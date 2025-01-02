@@ -60,12 +60,24 @@ export default class Game {
         this.app.append(this.gameOver);
         this.createHighScoreDisplay();
         this.loadHighScore();
+        this.createFooter();
     }
 
     createHighScoreDisplay() {
         const highScoreDisplay = document.createElement("div");
         highScoreDisplay.classList.add("high-score");
         this.app.appendChild(highScoreDisplay);
+    }
+
+    createFooter() {
+        const footer = document.createElement("footer");
+        footer.innerHTML = `
+            <p>
+                A fork of <a href="https://github.com/tomaswrobel/blocksdoku">BlocksDoku</a>,
+                which is inspired by Blockudoku.
+            </p>
+        `;
+        this.app.appendChild(footer);
     }
 
     createSettingsDialog() {

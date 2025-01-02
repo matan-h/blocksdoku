@@ -288,6 +288,20 @@ dialog {
 	}
 }
 
+footer {
+    position: sticky;
+    bottom: 0;
+    background-color: var(--color-dark);
+    color: var(--color-light);
+    padding: 10px;
+    text-align: center;
+    font-size: 0.8em;
+    z-index: 100;
+    a {
+        color: var(--color-primary);
+    }
+}
+
 // effects (GPT-written)
 .explode{ animation: explode 1s forwards}
 .fade-out{ animation: fade-out 1s ease-out forwards;}
