@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Define a simple block puzzle grid -->
+  <rect x="5" y="5" width="30" height="30" fill="blue" />
+  <rect x="40" y="5" width="30" height="30" fill="blue" />
+  <rect x="75" y="5" width="30" height="30" fill="white"/> <!-- Empty block -->
+  <rect x="5" y="40" width="30" height="30" fill="blue" />
+  <rect x="40" y="40" width="30" height="30" fill="blue" />
+  <rect x="75" y="40" width="30" height="30" fill="blue" />
+  <rect x="5" y="75" width="30" height="30" fill="blue" />
+  <rect x="40" y="75" width="30" height="30" fill="white" /> <!-- Empty block -->
+  <rect x="75" y="75" width="30" height="30" fill="blue" />
+</svg>

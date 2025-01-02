@@ -1,0 +1,16 @@
+{
+    "name": "BlocksDoku",
+    "short_name": "BlocksDoku",
+    "description": "A simple block puzzle game.",
+    "theme_color": "#3030ff",
+    "start_url": ".",
+    "display": "standalone",
+    "orientation": "portrait",
+    "icons": [
+      {
+        "src": "icon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+      }
+    ]
+  }
