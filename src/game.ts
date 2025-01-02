@@ -53,7 +53,14 @@ export default class Game {
         this.settingsButton.textContent = "Settings";
         this.settingsButton.addEventListener("click", () => this.settings.showModal());
         this.app.append(this.gameOver);
+        this.createHighScoreDisplay();
         this.loadHighScore();
+    }
+
+    createHighScoreDisplay() {
+        const highScoreDisplay = document.createElement("div");
+        highScoreDisplay.classList.add("high-score");
+        this.app.appendChild(highScoreDisplay);
     }
 
     createSettingsDialog() {
@@ -171,13 +178,57 @@ export default class Game {
     loadHighScore() {
         const saved = localStorage.getItem("highScore");
         if (saved) {
-            this.highScore = parseInt(saved, 10);
+            if (saved==='matan-h'){ // there is no way to get here from the game as matan-h would be charpoint 678 = U+2A6
+                const message = document.createElement('h1');
+                message.textContent = "No way... thats the coolest name ever, in your high score...";
+                message.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 5em;
+                    color: blue;
+                    font-weight: bold;
+                    background-color: rgba(255, 255, 255, 0.9);
+                    z-index: 1000;
+                    text-align:center;
+                    --e-aster-egg: true;
+                `;
+                this.app.prepend(message);
+                setTimeout(() => {
+                    message.remove();
+                }, 5000);
+            }
+            this.highScore = this.decodeHighScore(saved);
         }
         this.app.querySelector<HTMLDivElement>(".high-score")!.textContent = `High Score: ${this.highScore}`;
     }
 
     saveHighScore() {
-        localStorage.setItem("highScore", String(this.highScore));
+        localStorage.setItem("highScore", this.encodeHighScore(this.highScore));
+    }
+
+    encodeHighScore(score: number): string {
+        // that is an e aster egg :)
+        let encoded = "";
+        while (score > 0) {
+            const charCode = Math.min(score, 65535);
+            encoded += String.fromCharCode(charCode);
+            score -= charCode;
+        }
+        return encoded;
+    }
+
+    decodeHighScore(encoded: string): number {
+        let score = 0;
+        for (let i = 0; i < encoded.length; i++) {
+            score += encoded.charCodeAt(i);
+        }
+        return score;
     }
 
     fill() {
@@ -288,7 +339,7 @@ export default class Game {
                 highlight(field)
             };
 
-            mouseUp = (event: TouchEvent) => {
+            mouseUp = () => {
                 document.removeEventListener("touchmove", mouseMove);
                 document.removeEventListener("touchend", mouseUp);
 
@@ -350,7 +401,4 @@ export default class Game {
         this.fill();
     }
 
-    private static blockTouch(event: TouchEvent) {
-        event.preventDefault();
-    }
 }
