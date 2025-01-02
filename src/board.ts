@@ -137,7 +137,7 @@ export default class Board {
             }
             previous += group.length;
         }
-        return previous;
+        return previous*combo;
     }
 
     showCombo(combo:number){
