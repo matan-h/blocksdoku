@@ -141,8 +141,8 @@ table {
 td {
 	border: 1px solid var(--color-dark);
 	background-color: var(--color);
-	width: 8vmin;
-	height: 8vmin;
+	width: min(8vmin,66px);
+	height: min(8vmin,66px);
 
 	&.dark:not(.filled) {
 		opacity: 0.2;
