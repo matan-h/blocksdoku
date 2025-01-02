@@ -352,10 +352,10 @@ export default class Game {
                     this.score += table.querySelectorAll("td:not(.empty)").length;
                     this.board.mark(...field, table, "filled");
 
-                    this.check();
                     table.classList.add("used");
-
+                    
                     this.score += this.board.clearFilled();
+                    this.check();
                 }
 
                 this.board.clearHighlights();

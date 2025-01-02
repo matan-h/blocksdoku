@@ -60,7 +60,7 @@ export default class Board {
                 }
                 const cell = this.table.rows[y + i]?.cells[x + j];
 
-                if (!cell || cell.classList.contains("filled")) {
+                if (!cell || (cell.classList.contains("filled")  && !cell.classList.contains("animation"))) {
                     return false;
                 }
             }
@@ -120,10 +120,12 @@ export default class Board {
         for (const group of completing) {
             for (let index = 0; index < group.length; index++) {
                 const td = group[index];
+                td.classList.add('animation');
                 if(animation !== "none"){
                     const timeout = gradual ? ((index/group.length)*1000) : 0;
                     window.setTimeout(() => {
                         td.classList.remove("filled");
+                        td.classList.remove('animation');
 
                         td.classList.add(animation);
                         window.setTimeout(() => {
@@ -152,7 +154,7 @@ export default class Board {
     }
 
     getCompleting(block:HTMLTableCellElement[]=[]) : HTMLTableCellElement[][]{
-        const findCompletions =  group=>group.every(td => td.classList.contains("filled")||block.includes(td));
+        const findCompletions =  group=>group.every(td => (td.classList.contains("filled") && !td.classList.contains("animation"))||block.includes(td));
 
         return [...this.columns.filter(findCompletions),... this.rows.filter(findCompletions),...this.squares.filter(findCompletions, 0)];
     }
