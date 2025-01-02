@@ -1,1 +1,1 @@
-{"name":"BlocksDoku","short_name":"BlocksDoku","start_url":"/","display":"standalone","background_color":"#ffffff","lang":"en","scope":"/","description":"A simple block puzzle game.","theme_color":"#3030ff"}
+{"name":"BlocksDoku","short_name":"BlocksDoku","start_url":"./","display":"standalone","background_color":"#ffffff","lang":"en","scope":"./","description":"A simple block puzzle game.","theme_color":"#3030ff"}
