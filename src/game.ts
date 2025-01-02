@@ -28,16 +28,16 @@ export default class Game {
     ];
 
     constructor() {
-        const aside = document.createElement("div");
-        const blank = document.createElement("div");
-        aside.append(blank, this.panel);
+        const container = document.createElement("div");
+        container.className = 'panel'
+        container.append(this.panel);
 
 
         this.app.classList.add("app");
 
         this.panel.addEventListener("touchstart", this, { passive: false });
         this.panel.addEventListener("mousedown", this);
-        this.app.append(this.board.table, aside, this.settingsButton);
+        this.app.append(this.board.table, container, this.settingsButton);
         this.fill();
         this.createSettingsDialog();
 

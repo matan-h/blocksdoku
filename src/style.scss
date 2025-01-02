@@ -107,7 +107,7 @@ body {
     }
     .colorswirl { animation: spiralOut 1s forwards; }
 
-.app>div {
+.app>.panel {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--color-light);
@@ -125,19 +125,6 @@ body {
 		align-items: center;
 		flex-wrap: wrap;
 	}
-    >.combo {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 3em;
-        color: var(--color-light);
-        background-color: var(--color-dark);
-        padding: 20px;
-        border-radius: 10px;
-        z-index: 100;
-        animation: combo-pop 0.5s ease-out;
-    }
 }
 
 @keyframes combo-pop {
@@ -216,6 +203,19 @@ form.score::before {
 	text-align: center;
 	margin-bottom: 10px;
 	font-size: 1.2em;
+}
+.combo-popup {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	font-size: 3em;
+	color: var(--color-light);
+	background-color: var(--color-dark);
+	padding: 20px;
+	border-radius: 10px;
+	z-index: 100;
+	animation: combo-pop 0.5s ease-out;
 }
 
 dialog {

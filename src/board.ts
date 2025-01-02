@@ -143,7 +143,7 @@ export default class Board {
     showCombo(combo:number){
         const app = this.table.closest<HTMLElement>(".app")!;
         const comboDisplay = document.createElement("div");
-        comboDisplay.classList.add("combo");
+        comboDisplay.classList.add("combo-popup");
         comboDisplay.textContent = `Combo X${combo}!`;
         app.appendChild(comboDisplay);
         setTimeout(() => {
