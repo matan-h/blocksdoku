@@ -93,6 +93,10 @@ button{
             width: 24px;
             height: 24px;
         }
+        &:nth-of-type(2){
+            left: auto;
+            right: 10px;
+        }
 	}
     >.high-score {
         position: absolute;

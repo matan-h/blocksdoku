@@ -7,11 +7,18 @@ export default class Game {
     panel = document.createElement("div");
     app = document.createElement("div");
     settingsButton = document.createElement("button");
+    resetButton = document.createElement("button");
     board = new Board();
     settingsButtonSVG = `
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-settings">
             <circle cx="12" cy="12" r="3"></circle>
             <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09a1.65 1.65 0 0 0-1-.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09a1.65 1.65 0 0 0 .51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33 1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 .51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82 1.65 1.65 0 0 0 1.51 1h.09a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-.51 1z"></path>
+        </svg>
+    `;
+    resetButtonSVG = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-rotate-ccw">
+            <polyline points="1 4 1 10 7 10"></polyline>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
         </svg>
     `;
 
@@ -48,7 +55,7 @@ export default class Game {
 
         this.panel.addEventListener("touchstart", this, { passive: false });
         this.panel.addEventListener("mousedown", this);
-        this.app.append(this.board.table, container, this.settingsButton);
+        this.app.append(this.board.table, container, this.settingsButton, this.resetButton);
         this.fill();
         this.createSettingsDialog();
 
@@ -63,6 +70,8 @@ export default class Game {
         this.gameOver.onclose = () => this.reset();
         this.settingsButton.innerHTML = this.settingsButtonSVG;
         this.settingsButton.addEventListener("click", () => this.settings.showModal());
+        this.resetButton.innerHTML = this.resetButtonSVG;
+        this.resetButton.addEventListener("click", () => this.reset());
         this.app.append(this.gameOver);
         this.createHighScoreDisplay();
         this.loadHighScore();
