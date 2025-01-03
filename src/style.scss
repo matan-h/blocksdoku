@@ -22,7 +22,16 @@ body {
 	color: var(--color-text);
     overflow: hidden;
 }
+button{
+	&[type="reset"]{
+	// position: fixed;
+	top: auto;
+	bottom: 10px;
+	left: 10px;
+	background-color: var(--color-secondary);
+}
 
+}
 .app {
 	display: flex;
 	flex-direction: column;
@@ -335,11 +344,11 @@ dialog {
 		outline: none !important;
 		font-size: 1.1em;
 		cursor: pointer;
-		transition: background-color 0.3s ease;
+		// transition: background-color 0.3s ease;
 
-		&:hover {
-			background-color: var(--color-secondary);
-		}
+		// &:hover {
+		// 	background-color: var(--color-secondary);
+		// }
 	}
 
 	&::backdrop {

@@ -149,7 +149,7 @@ export default class Game {
 
         const resetButton = this.settings.querySelector<HTMLButtonElement>('button[type="reset"]')!;
         resetButton.onclick = () => {
-            localStorage.clear();
+            localStorage.removeItem("settings");
             window.location.reload();
         };
 
