@@ -46,6 +46,8 @@ export default class Game {
     ];
 
     constructor() {
+        this.resetButton.id = "resetButton";
+
         const container = document.createElement("div");
         container.className = 'panel'
         container.append(this.panel);

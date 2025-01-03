@@ -93,10 +93,6 @@ button{
             width: 24px;
             height: 24px;
         }
-        &:nth-of-type(2){
-            left: auto;
-            right: 10px;
-        }
 	}
     >.high-score {
         position: absolute;
@@ -435,4 +431,10 @@ footer {
 		transform: rotateY(360deg) scale(0);
 		opacity: 0;
 	}
+}
+#resetButton{
+	background-color: blue !important;
+		margin-left: 50px;
+		background-color:red;
+	
 }
