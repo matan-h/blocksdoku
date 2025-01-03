@@ -74,6 +74,16 @@ body {
 		border: none;
 		border-radius: 5px;
 		cursor: pointer;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        >svg{
+            width: 24px;
+            height: 24px;
+        }
 	}
     >.high-score {
         position: absolute;
@@ -231,7 +241,9 @@ dialog {
 	max-width: 500px;
 	border: 0;
 	padding: 20px;
-	background-color: var(--color-light);
+       background-color: rgba(255, 255, 255, 0.85);
+       backdrop-filter: blur(10px);
+       -webkit-backdrop-filter: blur(10px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 	font-family: sans-serif;
@@ -255,6 +267,16 @@ dialog {
 		pointer-events: none;
 	}
 
+    .setting {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 15px;
+        label {
+            margin-right: 10px;
+        }
+    }
+
 	label.color {
 		display: block;
 		height: 40px;
@@ -266,6 +288,40 @@ dialog {
 		max-width: 100px;
 		background-color: var(--color-primary);
 	}
+    select {
+        padding: 8px;
+        border: 1px solid var(--color-dark);
+        border-radius: 4px;
+        background-color: var(--color-light);
+        color: var(--color-text);
+        font-size: 1em;
+    }
+    input[type="checkbox"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--color-dark);
+        border-radius: 4px;
+        background-color: var(--color-light);
+        cursor: pointer;
+        position: relative;
+        &:checked {
+            background-color: var(--color-primary);
+            &::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(45deg);
+                width: 6px;
+                height: 10px;
+                border-right: 2px solid var(--color-light);
+                border-bottom: 2px solid var(--color-light);
+            }
+        }
+    }
 
 	button {
 		margin: 20px auto 10px;
