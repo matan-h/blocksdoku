@@ -171,8 +171,14 @@ table {
 	border-radius: 8px;
 }
 
-.main table {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.main {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+}
+.subgrid {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: inline-table;
 }
 .selectShape{
 	border: 1px solid var(--color-dark);
@@ -189,10 +195,10 @@ table {
 }
 
 .boardShape {
-	border: 1px solid var(--color-dark);
-	background-color: var(--color);
-	width: min(8vmin,66px);
-	height: min(8vmin,66px);
+    border: 1px solid var(--color-dark);
+    background-color: var(--color);
+    width: min(8vmin, 66px);
+    height: min(8vmin, 66px);
 
 	&.dark:not(.filled) {
 		opacity: 0.2;
