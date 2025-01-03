@@ -247,6 +247,7 @@ dialog {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 	font-family: sans-serif;
+	max-width: fit-content !important;
 
 	h1 {
 		text-align: center;
@@ -270,7 +271,7 @@ dialog {
     .setting {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        // justify-content: space-between;
         margin-bottom: 15px;
         label {
             margin-right: 10px;
