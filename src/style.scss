@@ -42,6 +42,7 @@ body {
 	>table {
 		max-width: 90vmin;
 		max-height: 90vmin;
+        margin-top: 40px;
 	}
 
 	@media (min-width: 768px) {
@@ -75,18 +76,18 @@ body {
 		cursor: pointer;
 	}
     >.high-score {
-        margin-top:20px;
-		border: 2px solid var(--color-dark);
-		border-radius: 100px;
-        position: fixed;
-        top: 40px;
-        right: 10px;
-        padding: 10px;
-        font-size: 1.2em;
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 10px 20px;
+        font-size: 1.5em;
+        font-weight: bold;
         color: var(--color-light);
         background-color: var(--color-dark);
+        border-radius: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-        transform-origin: top right;
     }
 }
 
