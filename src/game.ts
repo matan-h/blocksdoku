@@ -92,8 +92,8 @@ export default class Game {
             <form method="dialog">
                 <div class="setting">
                     <label>Theme</label>
-                    <label class="color" for="theme" style="background-color:#3030ff"></label>
-                    <input type="color" value="#3030ff" id="theme"/>
+                    <label class="color" for="theme" style="background-color:#2c95af"></label>
+                    <input type="color" value="#2c95af" id="theme"/>
                 </div>
                 <div class="setting">
                     <label>Animation</label>

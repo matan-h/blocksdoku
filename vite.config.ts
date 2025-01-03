@@ -10,7 +10,7 @@ export default defineConfig({
         name: 'BlocksDoku',
         short_name: 'BlocksDoku',
         description: 'A simple block puzzle game.',
-        theme_color: '#3030ff',
+        theme_color: '#2c95af',
       },
     })
   ]

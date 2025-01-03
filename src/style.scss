@@ -6,7 +6,7 @@
 	--color-light: #ecf0f1;
 	--color-dark: #34495e;
 	--color-highlight: rgba(151, 151, 151, 0.9);
-	--color: #3030FF; // will be changed in JS.
+	--color: #2c95af; // will be changed in JS.
 }
 
 * {
@@ -90,7 +90,7 @@ body {
         top: 10px;
         left: 50%;
         transform: translateX(-50%);
-        padding: 10px 20px;
+        padding: 10px 5px;
         font-size: 1.5em;
         font-weight: bold;
         color: var(--color-light);
