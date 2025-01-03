@@ -12,6 +12,7 @@ export default class Board {
 
             for (let j = 0; j < 9; j++) {
                 const td = document.createElement("td");
+                td.className = "boardShape"
 
                 tr.appendChild(td);
                 this.rows[i].push(td);

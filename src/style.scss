@@ -174,8 +174,21 @@ table {
 .main table {
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.selectShape{
+	border: 1px solid var(--color-dark);
+	background-color: var(--color);
+	width: min(8vmin,66px);
+	height: min(8vmin,66px);
 
-td {
+	&.empty {
+		transition: background-color 0.3s ease;
+		background: transparent;
+		pointer-events: none;
+		border: 0;
+	}
+}
+
+.boardShape {
 	border: 1px solid var(--color-dark);
 	background-color: var(--color);
 	width: min(8vmin,66px);
@@ -199,12 +212,7 @@ td {
 		filter: brightness(1.25);
 	}
 
-	&.empty {
-		transition: background-color 0.3s ease;
-		background: transparent;
-		pointer-events: none;
-		border: 0;
-	}
+	
 }
 
 table.block {

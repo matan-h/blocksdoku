@@ -18,6 +18,7 @@ export default class Block {
 
             for (const cell of row) {
                 const td = document.createElement("td");
+                td.className = "selectShape"
                 td.classList.toggle("empty", !cell);
                 td.classList.add("filled");
 
