@@ -6,6 +6,7 @@
 	--color-light: #ecf0f1;
 	--color-dark: #34495e;
 	--color-highlight: rgba(151, 151, 151, 0.9);
+	--subgrid-color: rgba(44, 149, 175, 0.3);
 	--color: #2c95af; // will be changed in JS.
 }
 
@@ -20,18 +21,20 @@ body {
 	font-family: sans-serif;
 	background-color: var(--color-bg);
 	color: var(--color-text);
-    overflow: hidden;
-}
-button{
-	&[type="reset"]{
-	// position: fixed;
-	top: auto;
-	bottom: 10px;
-	left: 10px;
-	background-color: var(--color-secondary);
+	overflow: hidden;
 }
 
+button {
+	&[type="reset"] {
+		// position: fixed;
+		top: auto;
+		bottom: 10px;
+		left: 10px;
+		background-color: var(--color-secondary);
+	}
+
 }
+
 .app {
 	display: flex;
 	flex-direction: column;
@@ -51,7 +54,7 @@ button{
 	>table {
 		max-width: 90vmin;
 		max-height: 90vmin;
-        margin-top: 40px;
+		margin-top: 40px;
 	}
 
 	@media (min-width: 768px) {
@@ -83,54 +86,68 @@ button{
 		border: none;
 		border-radius: 5px;
 		cursor: pointer;
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0;
-        >svg{
-            width: 24px;
-            height: 24px;
-        }
+		width: 40px;
+		height: 40px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0;
+
+		>svg {
+			width: 24px;
+			height: 24px;
+		}
 	}
-    >.high-score {
-        position: absolute;
-        top: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-        padding: 10px 5px;
-        font-size: 1.5em;
-        font-weight: bold;
-        color: var(--color-light);
-        background-color: var(--color-dark);
-        border-radius: 20px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-    }
+
+	>.high-score {
+		position: absolute;
+		top: 10px;
+		left: 50%;
+		transform: translateX(-50%);
+		padding: 10px 5px;
+		font-size: 1.5em;
+		font-weight: bold;
+		color: var(--color-light);
+		background-color: var(--color-dark);
+		border-radius: 20px;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+		transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+	}
 }
 
 @keyframes swirl {
-      0% { transform: rotate(0deg) scale(1); opacity: 1; }
-      100% { transform: rotate(720deg) scale(0); opacity: 0; }
-    }
-    .swirl {
-      animation: swirl 1s forwards;
-    }
+	0% {
+		transform: rotate(0deg) scale(1);
+		opacity: 1;
+	}
 
-    @keyframes spiralOut {
-      0% {
-        transform: rotate(0) scale(1);
-        opacity: 1;
-        filter: hue-rotate(0deg);
-      }
-      100% {
-        transform: rotate(1080deg) scale(0);
-        opacity: 0;
-        filter: hue-rotate(360deg);
-      }
-    }
-    .colorswirl { animation: spiralOut 1s forwards; }
+	100% {
+		transform: rotate(720deg) scale(0);
+		opacity: 0;
+	}
+}
+
+.swirl {
+	animation: swirl 1s forwards;
+}
+
+@keyframes spiralOut {
+	0% {
+		transform: rotate(0) scale(1);
+		opacity: 1;
+		filter: hue-rotate(0deg);
+	}
+
+	100% {
+		transform: rotate(1080deg) scale(0);
+		opacity: 0;
+		filter: hue-rotate(360deg);
+	}
+}
+
+.colorswirl {
+	animation: spiralOut 1s forwards;
+}
 
 .app>.panel {
 	display: flex;
@@ -142,7 +159,7 @@ button{
 	align-items: center;
 
 	height: calc((min(8vmin, 66px) * 3) + 40px);
-	width:calc(min(8vmin, 66px) * 9 + 40px);
+	width: calc(min(8vmin, 66px) * 9 + 40px);
 
 	>div {
 		display: flex;
@@ -154,14 +171,15 @@ button{
 }
 
 @keyframes combo-pop {
-    0% {
-        transform: translate(-50%, -50%) scale(0.5);
-        opacity: 0;
-    }
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 1;
-    }
+	0% {
+		transform: translate(-50%, -50%) scale(0.5);
+		opacity: 0;
+	}
+
+	100% {
+		transform: translate(-50%, -50%) scale(1);
+		opacity: 1;
+	}
 }
 
 table {
@@ -172,19 +190,25 @@ table {
 }
 
 .main {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    display: inline-block;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	display: inline-block;
 }
+
 .subgrid {
-    border-collapse: collapse;
-    border-spacing: 0;
-    display: inline-table;
+	border-collapse: collapse;
+	border-spacing: 0;
+	display: inline-table;
+
+	&.dark {
+		background-color: var(--subgrid-color);
+	}
 }
-.selectShape{
+
+.selectShape {
 	border: 1px solid var(--color-dark);
 	background-color: var(--color);
-	width: min(8vmin,66px);
-	height: min(8vmin,66px);
+	width: min(8vmin, 66px);
+	height: min(8vmin, 66px);
 
 	&.empty {
 		transition: background-color 0.3s ease;
@@ -195,16 +219,12 @@ table {
 }
 
 .boardShape {
-    border: 1px solid var(--color-dark);
-    background-color: var(--color);
-    width: min(8vmin, 66px);
-    height: min(8vmin, 66px);
+	border: 1px solid var(--color-dark);
+	background-color: var(--color);
+	width: min(8vmin, 66px);
+	height: min(8vmin, 66px);
 
-	&.dark:not(.filled) {
-		opacity: 0.2;
-	}
-
-	&.light:not(.filled) {
+	&:not(.filled) {
 		opacity: 0;
 	}
 
@@ -218,7 +238,7 @@ table {
 		filter: brightness(1.25);
 	}
 
-	
+
 }
 
 table.block {
@@ -244,6 +264,7 @@ form.score::before {
 	margin-bottom: 10px;
 	font-size: 1.2em;
 }
+
 .combo-popup {
 	position: absolute;
 	top: 50%;
@@ -264,9 +285,9 @@ dialog {
 	max-width: 500px;
 	border: 0;
 	padding: 20px;
-       background-color: rgba(255, 255, 255, 0.85);
-       backdrop-filter: blur(10px);
-       -webkit-backdrop-filter: blur(10px);
+	background-color: rgba(255, 255, 255, 0.85);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
 	font-family: sans-serif;
@@ -291,15 +312,16 @@ dialog {
 		pointer-events: none;
 	}
 
-    .setting {
-        display: flex;
-        align-items: center;
-        // justify-content: space-between;
-        margin-bottom: 15px;
-        label {
-            margin-right: 10px;
-        }
-    }
+	.setting {
+		display: flex;
+		align-items: center;
+		// justify-content: space-between;
+		margin-bottom: 15px;
+
+		label {
+			margin-right: 10px;
+		}
+	}
 
 	label.color {
 		display: block;
@@ -312,40 +334,44 @@ dialog {
 		max-width: 100px;
 		background-color: var(--color-primary);
 	}
-    select {
-        padding: 8px;
-        border: 1px solid var(--color-dark);
-        border-radius: 4px;
-        background-color: var(--color-light);
-        color: var(--color-text);
-        font-size: 1em;
-    }
-    input[type="checkbox"] {
-        appearance: none;
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        width: 20px;
-        height: 20px;
-        border: 2px solid var(--color-dark);
-        border-radius: 4px;
-        background-color: var(--color-light);
-        cursor: pointer;
-        position: relative;
-        &:checked {
-            background-color: var(--color-primary);
-            &::before {
-                content: '';
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) rotate(45deg);
-                width: 6px;
-                height: 10px;
-                border-right: 2px solid var(--color-light);
-                border-bottom: 2px solid var(--color-light);
-            }
-        }
-    }
+
+	select {
+		padding: 8px;
+		border: 1px solid var(--color-dark);
+		border-radius: 4px;
+		background-color: var(--color-light);
+		color: var(--color-text);
+		font-size: 1em;
+	}
+
+	input[type="checkbox"] {
+		appearance: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+		width: 20px;
+		height: 20px;
+		border: 2px solid var(--color-dark);
+		border-radius: 4px;
+		background-color: var(--color-light);
+		cursor: pointer;
+		position: relative;
+
+		&:checked {
+			background-color: var(--color-primary);
+
+			&::before {
+				content: '';
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%) rotate(45deg);
+				width: 6px;
+				height: 10px;
+				border-right: 2px solid var(--color-light);
+				border-bottom: 2px solid var(--color-light);
+			}
+		}
+	}
 
 	button {
 		margin: 20px auto 10px;
@@ -371,24 +397,36 @@ dialog {
 }
 
 footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 5px;
-    text-align: center;
-    font-size: 0.6em;
-    z-index: 100;
-    a {
-        color: var(--color-primary);
-    }
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	padding: 5px;
+	text-align: center;
+	font-size: 0.6em;
+	z-index: 100;
+
+	a {
+		color: var(--color-primary);
+	}
 }
 
 // effects (GPT-written)
-.explode{ animation: explode 1s forwards}
-.fade-out{ animation: fade-out 1s ease-out forwards;}
-.ripple{ animation: ripple 1s ease-out forwards;}
-.spin{ animation: spin 1s forwards;}
+.explode {
+	animation: explode 1s forwards
+}
+
+.fade-out {
+	animation: fade-out 1s ease-out forwards;
+}
+
+.ripple {
+	animation: ripple 1s ease-out forwards;
+}
+
+.spin {
+	animation: spin 1s forwards;
+}
 
 @keyframes fade-out {
 	0% {
@@ -446,9 +484,10 @@ footer {
 		opacity: 0;
 	}
 }
-#resetButton{
+
+#resetButton {
 	background-color: blue !important;
-		margin-left: 50px;
-		background-color:red;
-	
+	margin-left: 50px;
+	background-color: red;
+
 }

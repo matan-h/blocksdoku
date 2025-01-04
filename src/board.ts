@@ -28,10 +28,8 @@ export default class Board {
                         this.rows[row].push(td);
                         this.columns[col].push(td);
                         const square = i * 3 + j;
-                        if (square % 2) {
-                            td.classList.add("light");
-                        } else {
-                            td.classList.add("dark");
+                        if ((square+1) % 2) {
+                            subTable.classList.add("dark");
                         }
                         this.squares[square].push(td);
                     }
