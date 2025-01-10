@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudoku Block Editor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 50px);
+            grid-template-rows: repeat(3, 50px);
+            gap: 5px;
+        }
+
+        .cell {
+            width: 50px;
+            height: 50px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cell.active {
+            background-color: #007bff;
+            color: white;
+        }
+
+        pre {
+            margin-top: 20px;
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Sudoku Block Editor</h1>
+    <div class="grid" id="grid"></div>
+    <pre id="output"></pre>
+
+    <script>
+        // Create a 3x3 grid of cells
+        const grid = document.getElementById('grid');
+
+        for (let row = 0; row < 3; row++) {
+            for (let col = 0; col < 3; col++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                cell.dataset.row = row;
+                cell.dataset.col = col;
+                cell.addEventListener('click', () => {
+                    cell.classList.toggle('active');
+                    generateCode();
+                });
+                grid.appendChild(cell);
+            }
+        }
+        function rstripList(list) { // by qwq.
+            // Step 1: Remove trailing false(s) from each sublist
+            list.forEach(sublist => {
+                while (sublist.length > 0 && sublist[sublist.length - 1] === false) {
+                    sublist.pop();
+                }
+            });
+
+            // Step 2: Remove trailing sublists that are all false
+            while (list.length > 0 && list[list.length - 1].every(item => item === false)) {
+                list.pop();
+            }
+
+            return list;
+        }
+
+        function generateCode() {
+            const block = [];
+
+            // Generate block ensuring all rows and columns are accounted for
+            for (let row = 0; row < 3; row++) {
+                const rowArray = [];
+                for (let col = 0; col < 3; col++) {
+                    const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                    rowArray.push(cell.classList.contains('active'));
+                }
+                block.push(rowArray);
+            }
+
+            // Ensure columns and rows are fully represented
+            const columnMaxLength = Array(3).fill(false);
+            block.forEach(row => row.forEach((value, colIndex) => {
+                if (value) columnMaxLength[colIndex] = true;
+            }));
+
+            const formattedBlock = rstripList(block)
+
+            const output = `new Block(${formattedBlock.map(row => `[${row.map(value => value ? 'true' : 'false').join(', ')}]`).join(', ')})`;
+            document.getElementById('output').textContent = output;
+        }
+
+        generateCode(); // Generate code on page load
+    </script>
+</body>
+
+</html>
