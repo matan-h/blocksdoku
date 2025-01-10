@@ -90,7 +90,7 @@ export default class Game {
         const footer = document.createElement("footer");
         footer.innerHTML = `
             <p>
-                A fork of <a href="https://github.com/tomaswrobel/blocksdoku">BlocksDoku</a>,
+                <a href="https://github.com/matan-h/blocksdoku">This game</a> is a fork of <a href="https://github.com/tomaswrobel/blocksdoku">BlocksDoku</a>,
                 which is inspired by Blockudoku.
             </p>
         `;
