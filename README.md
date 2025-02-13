@@ -1,6 +1,6 @@
 # BlocksDoku
 
-BlocksDoku is a mini-game inspired by [Blockudoku](https://play.google.com/store/apps/details?id=com.easybrain.block.puzzle.games), a popular block puzzle game that combines sudoku and Tetris elements. BlocksDoku is written in TypeScript and runs in the browser.
+BlocksDoku is a mini-game inspired by [Blockudoku](https://play.google.com/store/apps/details?id=com.easybrain.block.puzzle.games), a popular block puzzle game that combines sudoku and Tetris elements. BlocksDoku is written in TypeScript and runs in the browser. This is a fork of the [tomaswrobel/blocksdoku](https://github.com/tomaswrobel/blocksdoku) repository.
 
 ![screenshot](screenshots/game.png)
 
