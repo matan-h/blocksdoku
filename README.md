@@ -7,7 +7,9 @@ BlocksDoku is a mini-game inspired by [Blockudoku](https://play.google.com/store
 ## How to play
 The goal of BlocksDoku is to fill the 9x9 grid with blocks of different shapes and colors. You can drag and drop the blocks from the bottom panel to the grid. When you complete a full row, column, or 3x3 square, it will disappear and you will score points. The game ends when there is no more space for new blocks.
 
-There is a [online version here](http://localhost:5173/)
+There is a [online version here](http://matan-h.com/blocksdoku/).
+
+BlocksDoku is a Progressive Web App (PWA) and can be used offline after loading it once.
 
 ## How to install
 To install BlocksDoku locally, you need to have [Node.js](https://nodejs.org) installed. Then, follow these steps:
