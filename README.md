@@ -2,7 +2,7 @@
 
 BlocksDoku is a mini-game inspired by [Blockudoku](https://play.google.com/store/apps/details?id=com.easybrain.block.puzzle.games), a popular block puzzle game that combines sudoku and Tetris elements. BlocksDoku is written in TypeScript and runs in the browser.
 
-![screenshots/game.png]
+![screenshot](screenshots/game.png)
 
 ## How to play
 The goal of BlocksDoku is to fill the 9x9 grid with blocks of different shapes and colors. You can drag and drop the blocks from the bottom panel to the grid. When you complete a full row, column, or 3x3 square, it will disappear and you will score points. The game ends when there is no more space for new blocks.
